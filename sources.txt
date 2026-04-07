@@ -16,6 +16,9 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\Playe
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\Warrior.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\Wizard.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\Wolf.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\interfaces\Healable.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\interfaces\SmokeBombable.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\interfaces\Stunnable.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\ArcaneBonusEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\DefendEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\SmokeBombEffect.java

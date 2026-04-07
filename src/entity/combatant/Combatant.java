@@ -15,16 +15,11 @@ public abstract class Combatant {
     protected int defense;
     protected int speed;
     protected boolean alive = true;
-    protected int stunDuration = 0;
     protected final List<StatusEffect> statusEffects = new ArrayList<>();
 
     public void takeDamage(int dmg) {
         hp = Math.max(0, hp - dmg);
         if (hp == 0) alive = false;
-    }
-
-    public void heal(int amount) {
-        hp = Math.min(maxHp, hp + amount);
     }
     
     public int getEffectiveDefense() {
@@ -35,13 +30,30 @@ public abstract class Combatant {
         return defense + bonus;
     }
 
-    public void addStatusEffect(StatusEffect e) { statusEffects.add(e); }
+    public void addStatusEffect(StatusEffect effect) { 
+        if (effect.isStackable()) {
+            statusEffects.add(effect);
+        } else {
+            int existingDuration = statusEffects.stream()
+                    .filter(e -> e.getClass() == effect.getClass())
+                    .mapToInt(StatusEffect::getDuration)
+                    .findFirst()
+                    .orElse(0);
+            if (existingDuration < effect.getDuration()) {
+                statusEffects.removeIf(e -> e.getClass() == effect.getClass());
+                statusEffects.add(effect);
+            }
+        }
+    }
 
-    public void tickStatusEffects(GameUI ui) {
+    public List<StatusEffect> getStatusEffects() { return statusEffects; }
+    
+
+    public void tickStatusEffects(GameUI ui, boolean begin) {
         Iterator<StatusEffect> it = statusEffects.iterator();
         while (it.hasNext()) {
             StatusEffect e = it.next();
-            e.apply(this, ui);
+            if (e.isBegin() != begin) { continue; }
             e.decrementDuration();
             if (e.isExpired()) {
                 e.onExpire(this, ui);
@@ -50,19 +62,15 @@ public abstract class Combatant {
         }
     }
 
-    // TODO: Decouple stun from combatant
-
-    public boolean isStunned() { return stunDuration > 0; }
-
-    public void applyStun(int turns) { stunDuration = Math.max(stunDuration, turns); }
-
-    public void decrementStun() { if (stunDuration > 0) stunDuration--; }
 
     public String getStatusSummary() {
-        if (stunDuration > 0) return "[STUNNED " + stunDuration + "]";
-        if (!statusEffects.isEmpty()) return "[" + statusEffects.get(0).getName() + "]";
-        return "";
+        if (statusEffects.isEmpty()) return "";
+            return statusEffects.stream()
+                .map(StatusEffect::toString)
+                .collect(java.util.stream.Collectors.joining(" "));
     }
+
+    public void setHp(int hp) { this.hp = hp; }
 
     // Getters
     public String getName() { return name; }

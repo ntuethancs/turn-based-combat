@@ -3,8 +3,10 @@ package entity.combatant;
 import java.util.List;
 
 import boundary.GameUI;
+import entity.combatant.interfaces.SmokeBombable;
+import entity.combatant.interfaces.Stunnable;
 
-public abstract class Enemy extends Combatant {
+public abstract class Enemy extends Combatant implements Stunnable {
 
     public void takeTurn(List<Combatant> targets, GameUI ui) {
         if (targets.isEmpty()) return;
@@ -13,13 +15,9 @@ public abstract class Enemy extends Combatant {
 
         // SmokeBombEffect on target overrides damage to 0 — handled in effect
         // We query effectiveIncomingDamage if target has smoke bomb
-        if (target instanceof Player) {
-            Player p = (Player) target;
-            if (p.isSmokeBombActive()) {
-                ui.displayActionResult(name + " attacks " + target.getName() +
-                        " -- 0 damage (Smoke Bomb active)!");
-                return;
-            }
+        if (target instanceof SmokeBombable && ((SmokeBombable) target).isSmokeBombActive()) {
+            ((SmokeBombable) target).attackedWithSmokeBomb(this, ui);
+            return;
         }
         target.takeDamage(dmg);
         ui.displayActionResult(name + " attacks " + target.getName() +

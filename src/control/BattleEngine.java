@@ -9,6 +9,7 @@ import control.strategy.TurnOrderStrategy;
 import entity.combatant.Combatant;
 import entity.combatant.Enemy;
 import entity.combatant.Player;
+import entity.combatant.interfaces.Stunnable;
 import entity.level.Level;
 
 // SRP: manages battle flow only
@@ -41,47 +42,39 @@ public class BattleEngine {
                 ui.displayActionResult("--- BACKUP SPAWN! " + backup.stream()
                         .map(Enemy::getName).collect(Collectors.joining(", ")) + " enter the arena! ---");
             }
-
+            
             ui.displayRoundStart(currentRound, allCombatants);
-
+            
             List<Combatant> turnOrder = turnStrategy.determineTurnOrder(
-                    allCombatants.stream().filter(Combatant::isAlive).collect(Collectors.toList()));
-
+                allCombatants.stream().filter(Combatant::isAlive).collect(Collectors.toList()));
+                
             for (Combatant combatant : turnOrder) {
                 if (!combatant.isAlive()) continue;
-
-                // Apply status effects at start of turn
-                combatant.tickStatusEffects(ui);
-
+                // Status effects applied by self tick at the beginning of the next turn
+                combatant.tickStatusEffects(ui, true);
                 if (!combatant.isAlive()) continue;
-                if (combatant.isStunned()) {
-                    ui.displayActionResult(combatant.getName() + " is STUNNED -- turn skipped!");
-                    combatant.decrementStun();
-                    continue;
-                }
 
                 processTurn(combatant);
-
+                
                 // Decrement special cooldown after each of the player's turns
                 if (combatant instanceof Player) {
                     ((Player) combatant).decrementCooldown();
                 }
-
+                // Status effects applied by other combatants tick at the end of the turn
+                combatant.tickStatusEffects(ui, false);
+                
                 if (checkBattleEnd()) {
                     return player.isAlive();
                 }
             }
-            // TODO: Change after decoupling of smoke bomb
-            for (Combatant combatant : turnOrder) {
-                if (combatant instanceof Player && ((Player) combatant).isSmokeBombActive()) {
-                    ((Player) combatant).tickSmokeBomb();
-                }
-            }
-
         }
     }
 
     private void processTurn(Combatant combatant) {
+        if (combatant instanceof Stunnable && ((Stunnable) combatant).isStunned()) {
+            ((Stunnable) combatant).showStun(ui);
+            return;
+        }
         if (combatant instanceof Player) {
             List<Enemy> living = getLivingEnemies();
             var action = ui.getPlayerAction((Player) combatant, living);
