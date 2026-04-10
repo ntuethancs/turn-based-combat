@@ -1,9 +1,10 @@
-package entity.action;
+package entity.combatant;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import entity.action.ActionContext;
 import entity.action.interfaces.Action;
 import entity.action.interfaces.SpecialAttack;
 

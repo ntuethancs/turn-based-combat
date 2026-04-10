@@ -1,7 +1,6 @@
 package entity.combatant;
 
 import entity.action.ActionContext;
-import entity.action.ActionMenu;
 import entity.action.interfaces.Action;
 
 public abstract class Combatant {
