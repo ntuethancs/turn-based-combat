@@ -4,6 +4,7 @@ import boundary.GameUI;
 import entity.action.ActionContext;
 import entity.action.interfaces.Action;
 import entity.combatant.helpers.ActionMenu;
+import entity.combatant.helpers.StatField;
 import entity.combatant.helpers.Stats;
 import entity.combatant.helpers.StatusManager;
 
@@ -39,9 +40,16 @@ public abstract class Combatant {
         status.removeExpired();
     }
 
-    public boolean takeDamage(int dmg, GameUI ui) {
-        if (!status.trigger(CombatEvent.ATTACKED, ui)) return false;
+    public void takeDamage(int dmg, GameUI ui) {
         hp = Math.max(0, hp - dmg);
+        ui.displayActionResult(dmg + " dmg dealt! HP: " + hp + "/" + stats().get(StatField.maxHp));
+        if (!isAlive())
+            ui.displayActionResult(name + " is ELIMINATED!");
+    }
+
+    public boolean takeAttack(int dmg, GameUI ui) {
+        if (!status.trigger(CombatEvent.ATTACKED, ui)) return false;
+        takeDamage(dmg, ui);
         return true;
     }
     

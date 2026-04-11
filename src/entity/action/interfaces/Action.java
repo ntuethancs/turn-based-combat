@@ -12,7 +12,7 @@ import entity.combatant.Combatant;
 public interface Action {
     String getLabel();
     List<Combatant> selectTargets(ActionContext ctx);
-    void executeOn(Combatant target, ActionContext ctx);
+    boolean executeOn(Combatant target, ActionContext ctx);
     default boolean isReady(ActionContext ctx) { return true; }
 
 

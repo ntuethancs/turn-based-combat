@@ -13,12 +13,13 @@ public class ItemAction implements SelfAction {
     }
 
     @Override
-    public void executeOn(Combatant target, ActionContext ctx) {
+    public boolean executeOn(Combatant target, ActionContext ctx) {
         if (ctx.selectedItem == null) {
             ctx.ui.displayActionResult("No item selected!");
-            return;
+            return false;
         }
         ctx.selectedItem.use(ctx);
+        return true;
     }
 
     @Override public String getLabel() { return "Use Item"; }

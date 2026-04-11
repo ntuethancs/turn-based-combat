@@ -1,18 +1,18 @@
-package entity.action.player.warrior;
+package entity.action.enemy;
 
 import entity.action.ActionContext;
-import entity.action.interfaces.PlayerSingleTargetAttack;
 import entity.action.interfaces.SpecialAttack;
+import entity.action.interfaces.SplashAttack;
 import entity.combatant.Combatant;
 import entity.effect.StunEffect;
 
-public class ShieldBash extends SpecialAttack implements PlayerSingleTargetAttack {
-    public ShieldBash() { super(2); }
+public class TailWhip extends SpecialAttack implements SplashAttack {
+    public TailWhip() { super(3); }
 
     @Override
     public boolean executeOn(Combatant target, ActionContext ctx) {
         if (super.executeOn(target, ctx) && target.isAlive()) {
-            StunEffect stun = new StunEffect(2);
+            StunEffect stun = new StunEffect(1);
             target.status.add(stun, ctx.ui);
             return true;
         } 
@@ -20,9 +20,8 @@ public class ShieldBash extends SpecialAttack implements PlayerSingleTargetAttac
     }
 
     @Override 
-    public String getLabel() { return "Shield Bash"; }
+    public String getLabel() { return "Tail Whip"; }
 
     @Override 
-    public String getVerb() { return "Shield Bashes"; }
-
+    public String getVerb() { return "Tail Whips"; }
 }

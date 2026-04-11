@@ -11,6 +11,8 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\strategy\Speed
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\strategy\TurnOrderStrategy.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\ActionContext.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\enemy\EnemyBasicAttack.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\enemy\FireBreath.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\enemy\TailWhip.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\interfaces\Action.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\interfaces\Attack.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\interfaces\PlayerSingleTargetAttack.java
@@ -26,10 +28,12 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\player\w
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\player\wizard\WizardBasicAttack.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\Combatant.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\CombatEvent.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Dragon.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Enemy.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Goblin.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Wolf.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\ActionMenu.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\Inventory.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\StatField.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\Stats.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\StatusManager.java
@@ -37,6 +41,7 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\playe
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\Warrior.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\Wizard.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\ArcaneBlastEffect.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\BurnEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\SmokeBombEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\StunEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\base\DurationEffect.java

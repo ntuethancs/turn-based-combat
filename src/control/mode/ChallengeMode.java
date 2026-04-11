@@ -14,7 +14,7 @@ public class ChallengeMode extends GameMode {
 
     @Override
     public Level getNextLevel(int roundNumber) {
-        if (roundNumber == 1) return new Level(Difficulty.HARD);
+        if (roundNumber == 1) return new Level(Difficulty.BOSS);
         return null;
     }
 
@@ -26,7 +26,7 @@ public class ChallengeMode extends GameMode {
     @Override
     public void onRoundEnd(BattleEngine engine, GameUI ui) {
         if (engine.getPlayer().isAlive()) {
-            ui.displayActionResult("--- Challenge complete! You conquered Hard mode with a fixed loadout! ---");
+            ui.displayActionResult("--- Challenge complete! You conquered Boss mode with a fixed loadout! ---");
         } else {
             ui.displayActionResult("--- Challenge failed. Adapt your tactics and try again! ---");
         }

@@ -3,6 +3,7 @@ package entity.level;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.combatant.enemy.Dragon;
 import entity.combatant.enemy.Enemy;
 import entity.combatant.enemy.Goblin;
 import entity.combatant.enemy.Wolf;
@@ -30,6 +31,9 @@ public class Level {
                 break;
             case HARD:
                 list.add(new Goblin()); list.add(new Goblin());
+                break;
+            case BOSS:
+                list.add(new Dragon()); list.add(new Dragon());
                 break;
         }
         return list;
