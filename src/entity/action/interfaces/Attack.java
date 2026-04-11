@@ -6,11 +6,11 @@ import entity.combatant.helpers.StatField;
 
 public interface Attack extends Action {
     default int getDamage(Combatant target, ActionContext ctx) {
-        return Math.max(0, ctx.actor.getStat(StatField.attack) - target.getStat(StatField.defense));
+        return Math.max(0, ctx.actor.stats().get(StatField.attack) - target.stats().get(StatField.defense));
     }
 
     default void displayDamage(Combatant target, ActionContext ctx, int dmg) {
-        ctx.ui.displayActionResult(dmg + " dmg dealt! HP: " + target.getHp() + "/" + target.getStat(StatField.maxHp));
+        ctx.ui.displayActionResult(dmg + " dmg dealt! HP: " + target.getHp() + "/" + target.stats().get(StatField.maxHp));
         if (!target.isAlive())
             ctx.ui.displayActionResult(target.getName() + " is ELIMINATED!");
     }

@@ -14,16 +14,13 @@ public class PermanentStatEffect extends PermanentEffect {
         this.stat = stat;
     }
 
-    public int getValue() { return value; }
-    public StatField getStat() { return stat; }
-
     @Override
     public void apply(Combatant target, GameUI ui) {
-        target.getStatEffects().add(stat, value);
+        target.statEffects.add(stat, value);
     }
 
     @Override
     public void remove(Combatant target, GameUI ui) {
-        target.getStatEffects().subtract(stat, value);
+        target.statEffects.subtract(stat, value);
     }
 }

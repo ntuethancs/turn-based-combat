@@ -10,7 +10,7 @@ public class DefendAction implements SelfAction {
     @Override
     public void executeOn(Combatant target, ActionContext ctx) {
         DurationStatEffect defendEffect = new DurationStatEffect("Defend", 2, 10, StatField.defense);
-        target.applyStatus(defendEffect, ctx.ui);
+        target.status.add(defendEffect, ctx.ui);
         ctx.ui.displayActionResult(target.getName() + " defends! +10 DEF for 2 turns.");
     }
 

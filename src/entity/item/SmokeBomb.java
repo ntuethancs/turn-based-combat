@@ -9,7 +9,7 @@ public class SmokeBomb extends Item {
     @Override
     public void use(ActionContext ctx) {
         SmokeBombEffect smoke = new SmokeBombEffect(2);
-        ctx.actor.applyStatus(smoke, ctx.ui);
+        ctx.actor.status.add(smoke, ctx.ui);
         used = true;
         ctx.ui.displayActionResult(ctx.actor.getName() + " throws a Smoke Bomb! Enemy attacks deal 0 damage for 2 turns.");
     }

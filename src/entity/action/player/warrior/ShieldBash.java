@@ -14,7 +14,7 @@ public class ShieldBash extends SpecialAttack implements PlayerSingleTargetAttac
         super.executeOn(target, ctx);
         if (target.isAlive()) {
             StunEffect stun = new StunEffect(2);
-            target.applyStatus(stun, ctx.ui);
+            target.status.add(stun, ctx.ui);
         } 
     }
 

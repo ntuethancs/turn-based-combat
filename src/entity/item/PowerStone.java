@@ -8,7 +8,7 @@ public class PowerStone extends Item {
 
     @Override
     public void use(ActionContext ctx) {
-        SpecialAttack specialAttack = ctx.actor.getActions().getSpecial();
+        SpecialAttack specialAttack = ctx.actor.actions.getSpecial();
         if (specialAttack == null) return;
         ctx.ui.displayActionResult(ctx.actor.getName() + " uses Power Stone -- Special Skill triggered (no cooldown change)!");
         int cooldown = specialAttack.getCooldown();

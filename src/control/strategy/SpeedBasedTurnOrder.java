@@ -11,7 +11,7 @@ public class SpeedBasedTurnOrder implements TurnOrderStrategy {
     @Override
     public List<Combatant> determineTurnOrder(List<Combatant> combatants) {
         List<Combatant> ordered = new ArrayList<>(combatants);
-        ordered.sort(Comparator.comparingInt((Combatant c) -> c.getStat(StatField.speed)).reversed());
+        ordered.sort(Comparator.comparingInt((Combatant c) -> c.stats().get(StatField.speed)).reversed());
         return ordered;
     }
 }

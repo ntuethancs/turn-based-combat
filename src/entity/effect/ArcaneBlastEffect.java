@@ -14,6 +14,6 @@ public class ArcaneBlastEffect extends PermanentStatEffect implements NonStackab
     @Override
     public void apply(Combatant target, GameUI ui) {
         super.apply(target, ui);
-        ui.displayActionResult("Arcane Bonus! ATK +" + value + " --> ATK now " + target.getStat(StatField.attack));
+        ui.displayActionResult("Arcane Bonus! ATK +" + value + " --> ATK now " + target.stats().get(StatField.attack));
     }
 }

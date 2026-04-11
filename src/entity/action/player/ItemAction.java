@@ -9,8 +9,7 @@ public class ItemAction implements SelfAction {
 
     @Override
     public boolean isReady(ActionContext ctx) {
-        return ctx.actor instanceof Player &&
-                ((Player) ctx.actor).hasUsableItem();
+        return ctx.actor instanceof Player && !((Player) ctx.actor).inventory.isEmpty();
     }
 
     @Override

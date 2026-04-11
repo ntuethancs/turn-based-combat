@@ -55,7 +55,6 @@ public class BattleEngine {
 
             for (Combatant combatant : turnOrder) {
                 if (!combatant.isAlive()) continue;
-                if (!combatant.isAlive()) continue;
                 takeTurn(combatant);
                 if (isBattleOver()) {
                     return player.isAlive();

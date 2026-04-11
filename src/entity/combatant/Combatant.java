@@ -4,18 +4,16 @@ import boundary.GameUI;
 import entity.action.ActionContext;
 import entity.action.interfaces.Action;
 import entity.combatant.helpers.ActionMenu;
-import entity.combatant.helpers.StatField;
 import entity.combatant.helpers.Stats;
 import entity.combatant.helpers.StatusManager;
-import entity.effect.base.StatusEffect;
 
 public abstract class Combatant {
     protected final String name;
     protected int hp;
     protected final Stats baseStats;
-    protected final Stats statEffects;
-    protected final StatusManager status;
-    protected final ActionMenu actions;
+    public final Stats statEffects;
+    public final StatusManager status;
+    public final ActionMenu actions;
 
     public Combatant(String name, int hp, int attack, int defense, int speed) {
         this.name = name;
@@ -54,10 +52,4 @@ public abstract class Combatant {
     public String getName() { return name; }
     public int getHp() { return hp; }
     public boolean isAlive() { return hp > 0; }
-    public ActionMenu getActions() { return actions; }
-    public Stats getBaseStats() { return baseStats; }
-    public Stats getStatEffects() { return statEffects; }
-    public int getStat(StatField stat) { return stats().get(stat); }
-    public void applyStatus(StatusEffect effect, GameUI ui) { status.add(effect, ui); }
-    public String showStatus() { return status.toString(); }
 }

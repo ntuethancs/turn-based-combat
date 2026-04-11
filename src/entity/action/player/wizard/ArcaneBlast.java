@@ -28,7 +28,7 @@ public class ArcaneBlast extends SpecialAttack implements SplashAttack {
         if (super.execute(ctx)) { 
             int bonus = getArcaneBonus(ctx.targets);
             ArcaneBlastEffect buff = new ArcaneBlastEffect(bonus);
-            ctx.actor.applyStatus(buff, ctx.ui);
+            ctx.actor.status.add(buff, ctx.ui);
             return true; 
         }
         return false;

@@ -101,7 +101,7 @@ public class GameUI {
         for (Combatant c : combatants) {
             if (c.isAlive()) {
                 System.out.printf("  %-14s HP: %3d/%-3d  %s%n",
-                        c.getName(), c.getHp(), c.getStat(StatField.maxHp), c.showStatus());
+                        c.getName(), c.getHp(), c.stats().get(StatField.maxHp), c.status.toString());
             }
         }
         System.out.println("=====================================================");
@@ -134,7 +134,7 @@ public class GameUI {
         if (playerWon) {
             System.out.println("VICTORY! Congratulations, you defeated all enemies!");
             System.out.printf("  Remaining HP: %d/%d  |  Total Rounds: %d%n",
-                    player.getHp(), player.getStat(StatField.maxHp), rounds);
+                    player.getHp(), player.stats().get(StatField.maxHp), rounds);
         } else {
             System.out.println("DEFEATED. Don't give up, try again!");
             System.out.printf("  Total Rounds Survived: %d%n", rounds);

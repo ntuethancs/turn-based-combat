@@ -9,11 +9,11 @@ public class Potion extends Item {
     @Override
     public void use(ActionContext ctx) {
         int before = ctx.actor.getHp();
-        int maxHp = ctx.actor.getStat(StatField.maxHp);
+        int maxHp = ctx.actor.stats().get(StatField.maxHp);
         int after = Math.min(maxHp, before + 100);
         ctx.actor.setHp(after);
         used = true;
         ctx.ui.displayActionResult(ctx.actor.getName() + " uses Potion! HP: " + before +
-                " --> " + ctx.actor.getHp() + "/" + ctx.actor.getStat(StatField.maxHp));
+                " --> " + ctx.actor.getHp() + "/" + ctx.actor.stats().get(StatField.maxHp));
     }
 }
