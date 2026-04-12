@@ -13,6 +13,15 @@ import entity.action.interfaces.Action;
 import entity.combatant.Combatant;
 import entity.combatant.helpers.StatField;
 import entity.combatant.player.Player;
+import entity.equipment.Equipment;
+import entity.equipment.artifact.IronShield;
+import entity.equipment.artifact.ManaGem;
+import entity.equipment.artifact.SwiftBoots;
+import entity.equipment.artifact.ThornArmour;
+import entity.equipment.artifact.VampiricAmulet;
+import entity.equipment.weapon.Dagger;
+import entity.equipment.weapon.Staff;
+import entity.equipment.weapon.Sword;
 import entity.item.Item;
 import entity.level.Difficulty;
 
@@ -80,6 +89,36 @@ public class GameUI {
             case 1: return new entity.item.Potion();
             case 2: return new entity.item.PowerStone();
             default: return new entity.item.SmokeBomb();
+        }
+    }
+
+    public Equipment selectWeapon() {
+        System.out.println("\n--- SELECT 1 WEAPON ---");
+        System.out.println("1. Sword   -- +15 ATK");
+        System.out.println("2. Staff   -- +20 ATK, -5 DEF");
+        System.out.println("3. Dagger  -- +10 ATK, +10 SPD");
+        int pick = readChoice(1, 3);
+        switch (pick) {
+            case 1: return new Sword();
+            case 2: return new Staff();
+            default: return new Dagger();
+        }
+    }
+
+    public Equipment selectArtifact() {
+        System.out.println("\n--- SELECT 1 ARTIFACT ---");
+        System.out.println("1. Iron Shield      -- +5 DEF permanently");
+        System.out.println("2. Swift Boots      -- +8 SPD permanently");
+        System.out.println("3. Vampiric Amulet  -- heal 10% of damage dealt at end of turn");
+        System.out.println("4. Thorn Armour     -- reflect 5 damage when hit");
+        System.out.println("5. Mana Gem         -- reduce special cooldown by 1 at end of turn");
+        int pick = readChoice(1, 5);
+        switch (pick) {
+            case 1: return new IronShield();
+            case 2: return new SwiftBoots();
+            case 3: return new VampiricAmulet();
+            case 4: return new ThornArmour();
+            default: return new ManaGem();
         }
     }
 

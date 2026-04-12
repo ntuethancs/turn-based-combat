@@ -17,10 +17,12 @@ public interface Attack extends Action {
     default boolean executeOn(Combatant target, ActionContext ctx) {
         int dmg = getDamage(target, ctx);
         displayAttack(target, ctx);
-        return target.takeAttack(dmg, ctx.ui);
+        boolean hit = target.takeAttack(ctx.actor, dmg, ctx.ui);
+        if (hit) ctx.actor.recordDamageDealt(dmg);
+        return hit;
     }
 
-    @Override 
+    @Override
     default String getLabel() { return "Basic Attack"; }
 
     default String getVerb() { return "attacks"; }

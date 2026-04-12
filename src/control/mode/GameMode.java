@@ -5,13 +5,24 @@ import control.BattleEngine;
 import entity.level.Level;
 
 public abstract class GameMode {
-    public final boolean allowItemSelection = true;
-    public final boolean allowWeaponSelection = true;
-
-    public abstract String getName();
+    public String getName() { return getClass().getSimpleName(); }
     public abstract Level getNextLevel(int roundNumber);
+
+    public boolean allowClassSelection() {
+        return true;
+    }
+
+    public boolean allowItemSelection() {
+        return true;
+    }
+
+    public boolean allowEquipmentSelection() {
+        return true;
+    }
+
     public boolean isBattleOver(BattleEngine engine) {
         return engine.isBattleOver();
     }
+
     public abstract void onRoundEnd(BattleEngine engine, GameUI ui);
 }

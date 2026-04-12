@@ -6,9 +6,9 @@ public abstract class SpecialAttack implements Attack {
     protected int cooldown;
     protected int specialCooldown;
 
-    public SpecialAttack(int cooldown) { 
-        this.cooldown = 0; 
-        this.specialCooldown = cooldown; 
+    public SpecialAttack(int cooldown) {
+        this.cooldown = 0;
+        this.specialCooldown = cooldown;
     }
 
     public void resetCooldown() { cooldown = specialCooldown; }
@@ -21,8 +21,9 @@ public abstract class SpecialAttack implements Attack {
     public boolean execute(ActionContext ctx) {
         if (Attack.super.execute(ctx)) {
             resetCooldown();
+            ctx.actor.markUsedSpecialThisTurn();
             return true;
         }
         return false;
-    };
+    }
 }

@@ -6,11 +6,23 @@ import entity.level.Difficulty;
 import entity.level.Level;
 
 public class ChallengeMode extends GameMode {
-    public final boolean allowItemSelection = false;
-    public final boolean allowWeaponSelection = false;
-
     @Override
     public String getName() { return "Challenge Mode"; }
+
+    @Override
+    public boolean allowClassSelection() {
+        return false;
+    }
+
+    @Override
+    public boolean allowItemSelection() {
+        return false;
+    }
+
+    @Override
+    public boolean allowEquipmentSelection() {
+        return false;
+    }
 
     @Override
     public Level getNextLevel(int roundNumber) {

@@ -14,7 +14,7 @@ public class Inventory {
     }
 
     public Inventory(List<Item> items) {
-        this.items = items;
+        this.items = new ArrayList<>(items);
     }
 
     public List<Item> usableItems() {
