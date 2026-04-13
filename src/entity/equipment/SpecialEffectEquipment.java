@@ -1,7 +1,12 @@
 package entity.equipment;
 
-import entity.effect.base.PermanentEffect;
+import entity.effect.equipment.EquipmentEffect;
 
-public interface SpecialEffectEquipment {
-    PermanentEffect createSpecialEffect();
+public abstract class SpecialEffectEquipment extends Equipment {
+    public final EquipmentEffect effect;
+
+    public SpecialEffectEquipment(EquipmentType type, EquipmentEffect effect) {
+        super(type);
+        this.effect = effect;
+    }
 }

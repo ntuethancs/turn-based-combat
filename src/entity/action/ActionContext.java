@@ -1,9 +1,11 @@
+
 package entity.action;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import boundary.GameUI;
+import entity.action.interfaces.Action;
 import entity.combatant.Combatant;
 import entity.combatant.enemy.Enemy;
 import entity.combatant.player.Player;
@@ -20,14 +22,13 @@ public class ActionContext {
     public final GameUI ui;
     public Item selectedItem;
     public List<Combatant> targets;
+    public Combatant curTarget;
+    public Action action;
+    public int damage = 0;
 
-    public ActionContext(Combatant actor,
-                         List<Combatant> allCombatants,
-                         Item selectedItem,
-                         GameUI ui) {
+    public ActionContext(Combatant actor, List<Combatant> allCombatants, GameUI ui) {
         this.actor          = actor;
         this.allCombatants  = allCombatants;
-        this.selectedItem   = selectedItem;
         this.ui             = ui;
     }
 

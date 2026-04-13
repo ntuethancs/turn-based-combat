@@ -64,7 +64,7 @@ public class BattleEngine {
     }
 
     public void takeTurn(Combatant combatant) {
-        ActionContext ctx = new ActionContext(combatant, allCombatants, null, ui);
+        ActionContext ctx = new ActionContext(combatant, allCombatants, ui);
         int aliveBefore = getLivingEnemies().size();
         combatant.takeTurn(ctx);
         int aliveAfter = getLivingEnemies().size();

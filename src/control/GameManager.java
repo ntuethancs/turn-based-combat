@@ -6,10 +6,10 @@ import java.util.List;
 import boundary.GameUI;
 import control.mode.GameMode;
 import control.strategy.SpeedBasedTurnOrder;
+import entity.combatant.helpers.EquipmentManager;
 import entity.combatant.player.Player;
 import entity.combatant.player.Warrior;
 import entity.combatant.player.Wizard;
-import entity.equipment.EquipManager;
 import entity.equipment.Equipment;
 import entity.item.Item;
 import entity.item.Potion;
@@ -94,7 +94,7 @@ public class GameManager {
     }
 
     private Player createPlayer(int type, List<Item> items, Equipment weapon, Equipment artifact) {
-        EquipManager equipment = new EquipManager(weapon, artifact);
+        EquipmentManager equipment = new EquipmentManager(weapon, artifact);
         if (type == 1) return new Warrior(items, equipment);
         return new Wizard(items, equipment);
     }

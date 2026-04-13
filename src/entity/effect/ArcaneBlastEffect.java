@@ -7,9 +7,7 @@ import entity.effect.base.NonStackableEffect;
 import entity.effect.base.PermanentStatEffect;
 
 public class ArcaneBlastEffect extends PermanentStatEffect implements NonStackableEffect {
-    public ArcaneBlastEffect(int bonus) { 
-        super("Arcane Blast", bonus, StatField.attack); 
-    }
+    public ArcaneBlastEffect(int bonus) { super(bonus, StatField.attack); }
 
     @Override
     public void apply(Combatant target, GameUI ui) {

@@ -34,6 +34,14 @@ public class GameUI {
         System.out.println("   WELCOME TO TURN-BASED COMBAT ARENA");
         System.out.println("===========================================");
     }
+    // TODO: edit ui methods to be more extensible
+    /*
+    for (int i = 0; i < modes.size(); i++) {
+        System.out.println(i + ". " + modes.get(i).describe());
+    }
+    int pick = readChoice(1, modes.size());
+    return modes.get(pick - 1).create();
+    */
 
     public GameMode selectGameMode() {
         System.out.println("\n--- SELECT GAME MODE ---");

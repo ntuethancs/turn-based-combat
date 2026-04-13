@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import boundary.GameUI;
+import entity.action.ActionContext;
 import entity.combatant.CombatEvent;
 import entity.combatant.Combatant;
 import entity.effect.base.NonStackableEffect;
@@ -31,6 +32,7 @@ public class StatusManager {
     public StatusManager(Combatant owner) {
         this.owner = owner;
     }
+
 
     public void add(StatusEffect effect, GameUI ui) {
         if (effect instanceof NonStackableEffect) {
@@ -86,10 +88,10 @@ public class StatusManager {
         return all();                                                              
     }  
 
-    public boolean trigger(CombatEvent event, GameUI ui) {
+    public boolean trigger(CombatEvent event, ActionContext ctx) {
         boolean proceed = true;
         for (StatusEffect e : active()) {
-            proceed = proceed && e.trigger(event, owner, ui);
+            proceed = proceed && e.trigger(event, ctx);
         }
         return proceed;
     }

@@ -17,8 +17,8 @@ public interface Attack extends Action {
     default boolean executeOn(Combatant target, ActionContext ctx) {
         int dmg = getDamage(target, ctx);
         displayAttack(target, ctx);
-        boolean hit = target.takeAttack(ctx.actor, dmg, ctx.ui);
-        if (hit) ctx.actor.recordDamageDealt(dmg);
+        boolean hit = target.takeAttack(dmg, ctx);
+        if (hit) ctx.damage += dmg;
         return hit;
     }
 

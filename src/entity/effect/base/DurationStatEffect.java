@@ -9,8 +9,8 @@ public class DurationStatEffect extends DurationEffect {
     protected final int value;
     protected final StatField stat;
 
-    public DurationStatEffect(String name, int duration, int value, StatField stat) {
-        super(name, duration);
+    public DurationStatEffect(int duration, int value, StatField stat) {
+        super(duration);
         this.value = value;
         this.stat = stat;
         addTrigger(CombatEvent.TURN_START, this::tick);

@@ -1,11 +1,14 @@
 package entity.equipment.artifact;
 
-import entity.combatant.helpers.Stats;
+import entity.combatant.helpers.StatField;
 import entity.equipment.Equipment;
 import entity.equipment.EquipmentType;
 
 public class IronShield extends Equipment {
     public IronShield() {
-        super("Iron Shield", new Stats(0, 0, 5, 0), EquipmentType.ARTIFACT);
+        super(EquipmentType.ARTIFACT);
+        stats.add(StatField.defense, 15);
+        stats.subtract(StatField.speed, 10);
     }
+
 }

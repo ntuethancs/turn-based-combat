@@ -1,4 +1,4 @@
-package entity.equipment;
+package entity.combatant.helpers;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,17 +6,19 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import entity.combatant.helpers.Stats;
 import entity.effect.base.PermanentEffect;
+import entity.equipment.Equipment;
+import entity.equipment.EquipmentType;
+import entity.equipment.SpecialEffectEquipment;
 
-public class EquipManager {
+public class EquipmentManager {
     private final Map<EquipmentType, Equipment> equipped;
 
-    public EquipManager() {
+    public EquipmentManager() {
         this.equipped = new EnumMap<>(EquipmentType.class);
     }
 
-    public EquipManager(Equipment weapon, Equipment artifact) {
+    public EquipmentManager(Equipment weapon, Equipment artifact) {
         this();
         equip(weapon);
         equip(artifact);
@@ -24,7 +26,7 @@ public class EquipManager {
 
     public void equip(Equipment equipment) {
         if (equipment == null) return;
-        equipped.put(equipment.getEquipmentType(), equipment);
+        equipped.put(equipment.type, equipment);
     }
 
     public Equipment unequip(EquipmentType type) {
@@ -52,9 +54,9 @@ public class EquipManager {
     }
 
     public Stats getTotalStatBonus() {
-        Stats total = new Stats(0, 0, 0, 0);
+        Stats total = new Stats();
         for (Equipment equipment : equipped.values()) {
-            total = total.add(equipment.getStatBonus());
+            total = total.add(equipment.stats);
         }
         return total;
     }
@@ -63,7 +65,7 @@ public class EquipManager {
         List<PermanentEffect> effects = new ArrayList<>();
         for (Equipment equipment : equipped.values()) {
             if (equipment instanceof SpecialEffectEquipment) {
-                effects.add(((SpecialEffectEquipment) equipment).createSpecialEffect());
+                effects.add(((SpecialEffectEquipment) equipment).effect);
             }
         }
         return effects;

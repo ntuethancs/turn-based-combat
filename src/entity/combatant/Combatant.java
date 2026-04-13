@@ -16,15 +16,12 @@ public abstract class Combatant {
     public final StatusManager status;
     public final ActionMenu actions;
 
-    private Combatant lastAttacker;
-    private int damageDealtThisTurn;
-    private boolean usedSpecialThisTurn;
 
     public Combatant(String name, int hp, int attack, int defense, int speed) {
         this.name = name;
         this.hp = hp;
         this.baseStats = new Stats(hp, attack, defense, speed);
-        this.statEffects = new Stats(0, 0, 0, 0);
+        this.statEffects = new Stats();
         this.status = new StatusManager(this);
         this.actions = new ActionMenu();
     }
@@ -32,17 +29,15 @@ public abstract class Combatant {
     public abstract Action chooseAction(ActionContext ctx);
 
     public void takeTurn(ActionContext ctx) {
-        resetTurnFlags();
-        if (status.trigger(CombatEvent.TURN_START, ctx.ui)) {
-            Action chosen = chooseAction(ctx);
+        if (status.trigger(CombatEvent.TURN_START, ctx)) {
+            ctx.action = chooseAction(ctx);
             actions.decrementCooldowns();
-            chosen.execute(ctx);
+            ctx.action.execute(ctx);
         } else {
             actions.decrementCooldowns();
         }
-        status.trigger(CombatEvent.TURN_END, ctx.ui);
+        status.trigger(CombatEvent.TURN_END, ctx);
         status.removeExpired();
-        lastAttacker = null;
     }
 
     public void takeDamage(int dmg, GameUI ui) {
@@ -53,46 +48,11 @@ public abstract class Combatant {
         }
     }
 
-    public boolean takeAttack(int dmg, GameUI ui) {
-        return takeAttack(null, dmg, ui);
-    }
-
-    public boolean takeAttack(Combatant attacker, int dmg, GameUI ui) {
-        lastAttacker = attacker;
-        if (!status.trigger(CombatEvent.ATTACKED, ui)) return false;
-        takeDamage(dmg, ui);
-        status.trigger(CombatEvent.DAMAGE_TAKEN, ui);
+    public boolean takeAttack(int dmg, ActionContext ctx) {
+        if (!status.trigger(CombatEvent.ATTACKED, ctx)) return false;
+        takeDamage(dmg, ctx.ui);
+        status.trigger(CombatEvent.DAMAGE_TAKEN, ctx);
         return true;
-    }
-
-    public void recordDamageDealt(int dmg) {
-        if (dmg > 0) damageDealtThisTurn += dmg;
-    }
-
-    public int consumeDamageDealtThisTurn() {
-        int value = damageDealtThisTurn;
-        damageDealtThisTurn = 0;
-        return value;
-    }
-
-    public void markUsedSpecialThisTurn() {
-        usedSpecialThisTurn = true;
-    }
-
-    public boolean consumeUsedSpecialThisTurn() {
-        boolean value = usedSpecialThisTurn;
-        usedSpecialThisTurn = false;
-        return value;
-    }
-
-    protected void resetTurnFlags() {
-        damageDealtThisTurn = 0;
-        usedSpecialThisTurn = false;
-        lastAttacker = null;
-    }
-
-    public Combatant getLastAttacker() {
-        return lastAttacker;
     }
 
     public Stats stats() { return baseStats.add(statEffects); }

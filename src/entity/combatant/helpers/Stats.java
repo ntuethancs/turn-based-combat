@@ -15,6 +15,8 @@ public class Stats {
         this.speed = speed;
     }
 
+    public Stats() {}
+
 
     public int get(StatField attr) {
         try {

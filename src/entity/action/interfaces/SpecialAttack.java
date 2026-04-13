@@ -21,7 +21,6 @@ public abstract class SpecialAttack implements Attack {
     public boolean execute(ActionContext ctx) {
         if (Attack.super.execute(ctx)) {
             resetCooldown();
-            ctx.actor.markUsedSpecialThisTurn();
             return true;
         }
         return false;
