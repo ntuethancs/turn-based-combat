@@ -6,6 +6,7 @@ import entity.action.interfaces.Action;
 import entity.combatant.Combatant;
 
 public class Enemy extends Combatant {
+    protected char tag = 'A';
 
     public Enemy(int hp, int attack, int defense, int speed) {
         super(hp, attack, defense, speed);

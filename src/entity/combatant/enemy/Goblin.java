@@ -5,11 +5,13 @@ public class Goblin extends Enemy {
 
     public Goblin() {
         super(5, 35, 15, 25); 
+        tag = (char)('A' + count);
+        count++;
     }
 
     @Override
     public String getName() {
-        return super.getName() + "-" + (char)('A' + count++);
+        return super.getName() + "-" + tag;
     }
 
     @Override

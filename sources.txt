@@ -4,8 +4,12 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\boundary\UserInterface
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\BattleEngine.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\GameManager.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\Registry.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\FixedSelection.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\GameMode.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\LevelGenerator.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\MultiRegistrySelection.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\RegistrySelection.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\Selection.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\challenge\ChallengeLevelGenerator.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\challenge\ChallengeMode.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\story\StoryLevelGenerator.java
@@ -57,6 +61,7 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\playe
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\Wizard.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\ArcaneBlastEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\BurnEffect.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\DefendEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\SmokeBombEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\StunEffect.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\base\DurationEffect.java
@@ -83,6 +88,7 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapo
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\Sword.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\WeaponRegistry.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Describable.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Factory.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Named.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Observer.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\item\Item.java

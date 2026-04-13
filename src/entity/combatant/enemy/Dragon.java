@@ -17,11 +17,13 @@ public class Dragon extends Enemy {
         actions.add(new EnemyBasicAttack());
         actions.add(new FireBreath());
         actions.add(new TailWhip());
+        tag = (char)('A' + count);
+        count++;
     }
 
     @Override
     public String getName() {
-        return super.getName() + "-" + (char)('A' + count++);
+        return super.getName() + "-" + tag;
     }
 
     @Override

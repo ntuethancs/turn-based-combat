@@ -5,7 +5,11 @@ import java.util.List;
 import boundary.UserInterface;
 import control.BattleEngine;
 import control.mode.GameMode;
+import entity.combatant.player.Player;
+import entity.combatant.player.Warrior;
 import entity.equipment.Equipment;
+import entity.equipment.artifact.IronShield;
+import entity.equipment.weapon.Sword;
 import entity.item.Item;
 import entity.item.Potion;
 
@@ -18,29 +22,30 @@ public class ChallengeMode extends GameMode {
     public String getName() { return "Challenge Mode"; }
 
     @Override
-    public String getDescription() { return "Fixed loadout (Warrior + 2 Potions), Boss battle"; }
+    public String getDescription() { return "Fixed loadout, Boss battle"; }
 
     @Override
-    public int selectPlayerType(UserInterface ui) {
+    public Class<? extends Player> getPlayerSelection(UserInterface ui) {
         ui.displayActionResult("Challenge Mode: Warrior selected as fixed class.");
-        return 1;
+        return Warrior.class;
     }
 
     @Override
-    public List<Item> selectItems(UserInterface ui) {
+    public List<Class<? extends Item>> getItemSelection(UserInterface ui) {
         ui.displayActionResult("Challenge Mode: 2x Potion assigned as fixed items.");
-        return List.of(new Potion(), new Potion());
+        return List.of(Potion.class, Potion.class);
     }
 
     @Override
-    public Equipment selectWeapon(UserInterface ui) {
-        ui.displayActionResult("Challenge Mode: no equipment selected.");
-        return null;
+    public Class<? extends Equipment> getWeaponSelection(UserInterface ui) {
+        ui.displayActionResult("Challenge Mode: sword selected as fixed weapon.");
+        return Sword.class;
     }
 
     @Override
-    public Equipment selectArtifact(UserInterface ui) {
-        return null;
+    public Class<? extends Equipment> getArtifactSelection(UserInterface ui) {
+        ui.displayActionResult("Challenge Mode: Iron Shield selected as fixed artifact.");
+        return IronShield.class;
     }
 
     @Override

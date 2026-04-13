@@ -1,6 +1,5 @@
 package control;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,22 +24,22 @@ public class GameManager {
         ui.displayWelcome();
 
         GameMode mode = null;
-        int playerType = -1;
-        List<Item> itemChoices = null;
-        Equipment weaponChoice = null;
-        Equipment artifactChoice = null;
+        Class<? extends Player> playerClass = null;
+        List<Class<? extends Item>> itemClasses = null;
+        Class<? extends Equipment> weaponClass = null;
+        Class<? extends Equipment> artifactClass = null;
         boolean replayWithSame = false;
 
         while (true) {
             if (!replayWithSame) {
                 mode = ui.selectGameMode();
-                playerType = mode.selectPlayerType(ui);
-                itemChoices = mode.selectItems(ui);
-                weaponChoice = mode.selectWeapon(ui);
-                artifactChoice = mode.selectArtifact(ui);
+                playerClass = mode.getPlayerSelection(ui);
+                itemClasses = mode.getItemSelection(ui);
+                weaponClass = mode.getWeaponSelection(ui);
+                artifactClass = mode.getArtifactSelection(ui);
             }
 
-            boolean won = runMode(mode, playerType, itemChoices, weaponChoice, artifactChoice);
+            boolean won = runMode(mode, playerClass, itemClasses, weaponClass, artifactClass);
             ui.displayModeEnd(won, mode);
 
             int choice = ui.askReplay();
@@ -55,8 +54,10 @@ public class GameManager {
         }
     }
 
-    private boolean runMode(GameMode mode, int playerType, List<Item> itemChoices,
-                            Equipment weaponChoice, Equipment artifactChoice) {
+    private boolean runMode(GameMode mode, Class<? extends Player> playerClass, 
+                            List<Class<? extends Item>> itemClasses,
+                            Class<? extends Equipment> weaponClass, 
+                            Class<? extends Equipment> artifactClass) {
         
         Iterator<Level> levels = mode.iterator();
         int levelNumber = 1;
@@ -65,10 +66,10 @@ public class GameManager {
             Level level = levels.next();
 
             Player player = new PlayerFactory()
-                .createPlayer(playerType)
-                .addItems(cloneItems(itemChoices))
-                .addEquipment(weaponChoice)
-                .addEquipment(artifactChoice)
+                .createPlayer(playerClass)
+                .addItems(itemClasses)
+                .addEquipment(weaponClass)
+                .addEquipment(artifactClass)
                 .build();
             
             BattleEngine engine = new BattleEngine(ui, new SpeedBasedTurnOrder(), level, player, levelNumber);
@@ -82,13 +83,5 @@ public class GameManager {
             levelNumber++;
         }
         return true;
-    }
-
-    private List<Item> cloneItems(List<Item> items) {
-        List<Item> copies = new ArrayList<>();
-        for (Item item : items) {
-            copies.add(item.copy());
-        }
-        return copies;
     }
 }

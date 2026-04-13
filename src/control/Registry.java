@@ -40,29 +40,8 @@ public class Registry<T extends Named & Describable> {
         return new ArrayList<>(entries.values());
     }
 
-    public T create(int index) {
-        List<Entry<T>> list = getEntries();
-        if (index < 0 || index >= list.size()) return null;
-        try {
-            return list.get(index).type.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to instantiate " + list.get(index).type.getName(), e);
-        }
-    }
-
-    public <S extends T> S create(Class<S> type) {
-        try {
-            return type.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to instantiate " + type.getName(), e);
-        }
-    }
-
-    public Entry<T> getEntry(Class<? extends T> type) {
-        for (Entry<T> entry : entries.values()) {
-            if (entry.type.equals(type)) return entry;
-        }
-        return null;
+    public Class<? extends T> getType(int index) {
+        return getEntries().get(index).type;
     }
 }
 

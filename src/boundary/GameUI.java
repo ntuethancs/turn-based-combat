@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import control.Registry;
 import control.mode.GameMode;
 import control.mode.challenge.ChallengeMode;
 import control.mode.story.StoryMode;
@@ -11,16 +12,11 @@ import control.mode.survival.SurvivalMode;
 import control.mode.timed.TimedMode;
 import entity.action.interfaces.Action;
 import entity.combatant.Combatant;
-import entity.combatant.enemy.Enemy;
-import entity.combatant.enemy.EnemyRegistry;
 import entity.combatant.helpers.StatField;
 import entity.combatant.player.Player;
-import entity.combatant.player.PlayerRegistry;
-import entity.equipment.Equipment;
-import entity.equipment.artifact.ArtifactRegistry;
-import entity.equipment.weapon.WeaponRegistry;
+import entity.interfaces.Describable;
+import entity.interfaces.Named;
 import entity.item.Item;
-import entity.item.ItemRegistry;
 import entity.level.Difficulty;
 
 public class GameUI implements UserInterface {
@@ -66,77 +62,34 @@ public class GameUI implements UserInterface {
     }
 
     @Override
-    public int selectPlayerType() {
-        PlayerRegistry registry = PlayerRegistry.getInstance();
-        List<PlayerRegistry.Entry<Player>> entries = registry.getEntries();
-        List<String> names = registry.getNames();
-
-        System.out.println("\n--- SELECT YOUR PLAYER ---");
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.printf("%d. %-10s -- %s%n", i + 1, names.get(i), entries.get(i).description);
-        }
-        return readChoice(1, entries.size());
+    public <T extends Named & Describable> Class<? extends T> selectFromRegistry(Registry<T> registry, String title) {
+        displayRegistry(registry, title);
+        int choice = readChoice(1, registry.getNames().size());
+        return registry.getType(choice - 1);
     }
 
     @Override
-    public int selectEnemyType() {
-        EnemyRegistry registry = EnemyRegistry.getInstance();
-        List<EnemyRegistry.Entry<Enemy>> entries = registry.getEntries();
-        List<String> names = registry.getNames();
-
-        System.out.println("\n--- SELECT ENEMY ---");
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.printf("%d. %-10s -- %s%n", i + 1, names.get(i), entries.get(i).description);
-        }
-        return readChoice(1, entries.size());
-    }
-
-    @Override
-    public List<Item> selectItems() {
-        List<Item> chosen = new ArrayList<>();
-        ItemRegistry registry = ItemRegistry.getInstance();
-        List<ItemRegistry.Entry<Item>> entries = registry.getEntries();
-        List<String> names = registry.getNames();
-
-        System.out.println("\n--- SELECT 2 ITEMS (duplicates allowed) ---");
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.printf("%d. %-12s -- %s%n", i + 1, names.get(i), entries.get(i).description);
-        }
-
-        for (int i = 1; i <= 2; i++) {
-            System.out.print("Item " + i + ": ");
-            int pick = readChoice(1, entries.size());
-            chosen.add(registry.create(pick - 1));
+    public <T extends Named & Describable> List<Class<? extends T>> selectMultipleFromRegistry(
+            Registry<T> registry, String title, int count) {
+        displayRegistry(registry, title);
+        List<Class<? extends T>> chosen = new ArrayList<>();
+        for (int i = 1; i <= count; i++) {
+            System.out.print("Choice " + i + ": ");
+            int pick = readChoice(1, registry.getNames().size());
+            chosen.add(registry.getType(pick - 1));
         }
         return chosen;
     }
 
-    @Override
-    public Equipment selectWeapon() {
-        WeaponRegistry registry = WeaponRegistry.getInstance();
-        List<WeaponRegistry.Entry<Equipment>> entries = registry.getEntries();
+    private <T extends Named & Describable> void displayRegistry(
+            Registry<T> registry, String title) {
         List<String> names = registry.getNames();
+        List<Registry.Entry<T>> entries = registry.getEntries();
 
-        System.out.println("\n--- SELECT 1 WEAPON ---");
+        System.out.println("\n--- " + title + " ---");
         for (int i = 0; i < entries.size(); i++) {
-            System.out.printf("%d. %-8s -- %s%n", i + 1, names.get(i), entries.get(i).description);
+            System.out.printf("%d. %-20s -- %s%n", i + 1, names.get(i), entries.get(i).description);
         }
-        int pick = readChoice(1, entries.size());
-        return registry.create(pick - 1);
-    }
-
-    @Override
-    public Equipment selectArtifact() {
-        ArtifactRegistry registry = ArtifactRegistry.getInstance();
-        List<ArtifactRegistry.Entry<Equipment>> entries = registry.getEntries();
-        List<String> names = registry.getNames();
-
-        System.out.println("\n--- SELECT 1 ARTIFACT ---");
-        for (int i = 0; i < entries.size(); i++) {
-            System.out.printf("%d. %-18s -- %s%n", i + 1, names.get(i), entries.get(i).description);
-        }
-        int pick = readChoice(1, entries.size());
-        return registry.create(pick - 1);
     }
 
     @Override

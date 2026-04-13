@@ -5,11 +5,13 @@ public class Wolf extends Enemy {
 
     public Wolf() {
         super(40, 45, 5, 35);
+        tag = (char)('A' + count);
+        count++;
     }
 
     @Override
     public String getName() {
-        return super.getName() + "-" + (char)('A' + count++);
+        return super.getName() + "-" + tag;
     }
 
     @Override
