@@ -13,7 +13,7 @@ import entity.item.Item;
  * Carries all runtime data an Action needs during execution.
  * Target resolution is handled here — Actions read from context, never prompt UI directly.
  */
-public class ActionContext {
+public class ActionContext implements CombatState, InteractionProvider, ExecutionState {
 
     public final Combatant actor;
     public final List<Combatant> allCombatants;
@@ -30,13 +30,17 @@ public class ActionContext {
         this.ui             = ui;
     }
 
-    // ── Team helpers ─────────────────────────────────────────
+    // ── CombatState implementations ──────────────────────────
+
+    @Override public Combatant getActor() { return actor; }
+    @Override public List<Combatant> getAllCombatants() { return allCombatants; }
 
     /**
      * Returns all living combatants on the same team as the actor.
      * Player → all living Players
      * Enemy  → all living Enemies
      */
+    @Override
     public List<Combatant> getLivingAllies() {
         return allCombatants.stream()
                 .filter(c -> c.isAlive() && isSameTeam(actor, c))
@@ -48,6 +52,7 @@ public class ActionContext {
      * Player → all living Enemies
      * Enemy  → all living Players
      */
+    @Override
     public List<Combatant> getLivingOpponents() {
         return allCombatants.stream()
                 .filter(c -> c.isAlive() && isOpposingTeam(actor, c))
@@ -57,11 +62,27 @@ public class ActionContext {
     /**
      * Returns all living combatants regardless of team.
      */
+    @Override
     public List<Combatant> getLivingAll() {
         return allCombatants.stream()
                 .filter(Combatant::isAlive)
                 .collect(Collectors.toList());
     }
+
+    // ── InteractionProvider implementation ───────────────────
+
+    @Override public UserInterface getUI() { return ui; }
+
+    // ── ExecutionState implementations ────────────────────────
+
+    @Override public Item getSelectedItem() { return selectedItem; }
+    @Override public void setSelectedItem(Item item) { this.selectedItem = item; }
+    @Override public List<Combatant> getTargets() { return targets; }
+    @Override public void setTargets(List<Combatant> targets) { this.targets = targets; }
+    @Override public Combatant getCurTarget() { return curTarget; }
+    @Override public void setCurTarget(Combatant target) { this.curTarget = target; }
+    @Override public int getDamage() { return damage; }
+    @Override public void addDamage(int dmg) { this.damage += dmg; }
 
     // ── Team checks ───────────────────────────────────────────
 

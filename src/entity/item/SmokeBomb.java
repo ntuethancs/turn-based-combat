@@ -4,10 +4,13 @@ import entity.action.ActionContext;
 import entity.effect.SmokeBombEffect;
 
 public class SmokeBomb extends Item {
-    public SmokeBomb() { this.name = "Smoke Bomb"; }
+    public SmokeBomb() { }
 
     @Override
     public Item copy() { return new SmokeBomb(); }
+
+    @Override
+    public String getDescription() { return "Enemy attacks deal 0 dmg this turn + next"; }
 
     @Override
     public void use(ActionContext ctx) {

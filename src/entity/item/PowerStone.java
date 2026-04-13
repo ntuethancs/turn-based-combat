@@ -4,10 +4,13 @@ import entity.action.ActionContext;
 import entity.action.interfaces.SpecialAttack;
 
 public class PowerStone extends Item {
-    public PowerStone() { this.name = "Power Stone"; }
+    public PowerStone() { }
 
     @Override
     public Item copy() { return new PowerStone(); }
+
+    @Override
+    public String getDescription() { return "Free use of special skill (no cooldown change)"; }
 
     @Override
     public void use(ActionContext ctx) {

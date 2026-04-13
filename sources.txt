@@ -3,6 +3,7 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\boundary\GameUI.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\boundary\UserInterface.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\BattleEngine.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\GameManager.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\Registry.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\GameMode.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\LevelGenerator.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\challenge\ChallengeLevelGenerator.java
@@ -16,6 +17,9 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\timed\Tim
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\strategy\SpeedBasedTurnOrder.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\strategy\TurnOrderStrategy.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\ActionContext.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\CombatState.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\ExecutionState.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\InteractionProvider.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\enemy\EnemyBasicAttack.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\enemy\FireBreath.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\action\enemy\TailWhip.java
@@ -66,6 +70,7 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\effect\equipmen
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\Equipment.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\EquipmentType.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\SpecialEffectEquipment.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\artifact\ArtifactRegistry.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\artifact\IronShield.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\artifact\ManaGem.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\artifact\SwiftBoots.java
@@ -74,9 +79,12 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\artif
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\Dagger.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\Staff.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\Sword.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\WeaponRegistry.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Describable.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Named.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Observer.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\item\Item.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\item\ItemRegistry.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\item\Potion.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\item\PowerStone.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\item\SmokeBomb.java

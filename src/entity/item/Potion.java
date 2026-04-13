@@ -4,10 +4,13 @@ import entity.action.ActionContext;
 import entity.combatant.helpers.StatField;
 
 public class Potion extends Item {
-    public Potion() { this.name = "Potion"; }
+    public Potion() { }
 
     @Override
     public Item copy() { return new Potion(); }
+
+    @Override
+    public String getDescription() { return "Heal 100 HP"; }
 
     @Override
     public void use(ActionContext ctx) {

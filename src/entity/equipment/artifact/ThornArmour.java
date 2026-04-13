@@ -8,4 +8,7 @@ public class ThornArmour extends SpecialEffectEquipment {
     public ThornArmour() {
         super(EquipmentType.ARTIFACT, new ThornArmourEffect());
     }
+
+    @Override
+    public String getDescription() { return "reflect 5 damage when hit"; }
 }

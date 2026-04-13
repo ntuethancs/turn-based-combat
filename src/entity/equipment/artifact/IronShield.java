@@ -11,4 +11,7 @@ public class IronShield extends Equipment {
         stats.subtract(StatField.speed, 10);
     }
 
+    @Override
+    public String getDescription() { return "+15 DEF, -10 SPD"; }
+
 }

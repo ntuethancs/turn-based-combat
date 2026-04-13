@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import entity.combatant.enemy.Dragon;
 import entity.combatant.enemy.Enemy;
 import entity.combatant.enemy.EnemyFactory;
 import entity.combatant.enemy.Goblin;
 import entity.combatant.enemy.Wolf;
-import entity.combatant.enemy.Dragon;
 
 public class DifficultySpawner implements Spawner {
     private final Difficulty difficulty;

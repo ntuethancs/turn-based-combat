@@ -8,4 +8,7 @@ public class VampiricAmulet extends SpecialEffectEquipment {
     public VampiricAmulet() {
         super(EquipmentType.ARTIFACT, new VampiricAmuletEffect());
     }
+
+    @Override
+    public String getDescription() { return "heal 10% of damage dealt at end of turn"; }
 }

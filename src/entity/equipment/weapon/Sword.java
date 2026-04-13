@@ -10,4 +10,7 @@ public class Sword extends Equipment {
         super(EquipmentType.WEAPON);
         stats.add(StatField.attack, 15);
     }
+
+    @Override
+    public String getDescription() { return "+15 ATK"; }
 }

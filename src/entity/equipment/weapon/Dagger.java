@@ -10,4 +10,7 @@ public class Dagger extends Equipment {
         stats.add(StatField.attack, 10);
         stats.add(StatField.speed, 10);
     }
+
+    @Override
+    public String getDescription() { return "+10 ATK, +10 SPD"; }
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import control.mode.challenge.ChallengeMode;
 import control.mode.GameMode;
+import control.mode.challenge.ChallengeMode;
 import control.mode.story.StoryMode;
 import control.mode.survival.SurvivalMode;
 import control.mode.timed.TimedMode;
@@ -14,15 +14,10 @@ import entity.combatant.Combatant;
 import entity.combatant.helpers.StatField;
 import entity.combatant.player.Player;
 import entity.equipment.Equipment;
-import entity.equipment.artifact.IronShield;
-import entity.equipment.artifact.ManaGem;
-import entity.equipment.artifact.SwiftBoots;
-import entity.equipment.artifact.ThornArmour;
-import entity.equipment.artifact.VampiricAmulet;
-import entity.equipment.weapon.Dagger;
-import entity.equipment.weapon.Staff;
-import entity.equipment.weapon.Sword;
+import entity.equipment.artifact.ArtifactRegistry;
+import entity.equipment.weapon.WeaponRegistry;
 import entity.item.Item;
+import entity.item.ItemRegistry;
 import entity.level.Difficulty;
 
 public class GameUI implements UserInterface {
@@ -34,14 +29,6 @@ public class GameUI implements UserInterface {
         System.out.println("   WELCOME TO TURN-BASED COMBAT ARENA");
         System.out.println("===========================================");
     }
-    // TODO: edit ui methods to be more extensible
-    /*
-    for (int i = 0; i < modes.size(); i++) {
-        System.out.println(i + ". " + modes.get(i).describe());
-    }
-    int pick = readChoice(1, modes.size());
-    return modes.get(pick - 1).create();
-    */
 
     public GameMode selectGameMode() {
         List<GameMode> modes = List.of(
@@ -83,67 +70,57 @@ public class GameUI implements UserInterface {
 
     public List<Item> selectItems() {
         List<Item> chosen = new ArrayList<>();
+        ItemRegistry registry = ItemRegistry.getInstance();
+        List<ItemRegistry.Entry<Item>> entries = registry.getEntries();
+        List<String> names = registry.getNames();
+
         System.out.println("\n--- SELECT 2 ITEMS (duplicates allowed) ---");
-        System.out.println("1. Potion       -- Heal 100 HP");
-        System.out.println("2. Power Stone  -- Free use of special skill (no cooldown change)");
-        System.out.println("3. Smoke Bomb   -- Enemy attacks deal 0 dmg this turn + next");
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.printf("%d. %-12s -- %s%n", i + 1, names.get(i), entries.get(i).description);
+        }
+
         for (int i = 1; i <= 2; i++) {
             System.out.print("Item " + i + ": ");
-            int pick = readChoice(1, 3);
-            chosen.add(createItem(pick));
+            int pick = readChoice(1, entries.size());
+            chosen.add(registry.create(pick - 1));
         }
         return chosen;
     }
 
-    private Item createItem(int pick) {
-        switch (pick) {
-            case 1: return new entity.item.Potion();
-            case 2: return new entity.item.PowerStone();
-            default: return new entity.item.SmokeBomb();
-        }
-    }
-
     public Equipment selectWeapon() {
+        WeaponRegistry registry = WeaponRegistry.getInstance();
+        List<WeaponRegistry.Entry<Equipment>> entries = registry.getEntries();
+        List<String> names = registry.getNames();
+
         System.out.println("\n--- SELECT 1 WEAPON ---");
-        System.out.println("1. Sword   -- +15 ATK");
-        System.out.println("2. Staff   -- +20 ATK, -5 DEF");
-        System.out.println("3. Dagger  -- +10 ATK, +10 SPD");
-        int pick = readChoice(1, 3);
-        switch (pick) {
-            case 1: return new Sword();
-            case 2: return new Staff();
-            default: return new Dagger();
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.printf("%d. %-8s -- %s%n", i + 1, names.get(i), entries.get(i).description);
         }
+        int pick = readChoice(1, entries.size());
+        return registry.create(pick - 1);
     }
 
     public Equipment selectArtifact() {
+        ArtifactRegistry registry = ArtifactRegistry.getInstance();
+        List<ArtifactRegistry.Entry<Equipment>> entries = registry.getEntries();
+        List<String> names = registry.getNames();
+
         System.out.println("\n--- SELECT 1 ARTIFACT ---");
-        System.out.println("1. Iron Shield      -- +5 DEF permanently");
-        System.out.println("2. Swift Boots      -- +8 SPD permanently");
-        System.out.println("3. Vampiric Amulet  -- heal 10% of damage dealt at end of turn");
-        System.out.println("4. Thorn Armour     -- reflect 5 damage when hit");
-        System.out.println("5. Mana Gem         -- reduce special cooldown by 1 at end of turn");
-        int pick = readChoice(1, 5);
-        switch (pick) {
-            case 1: return new IronShield();
-            case 2: return new SwiftBoots();
-            case 3: return new VampiricAmulet();
-            case 4: return new ThornArmour();
-            default: return new ManaGem();
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.printf("%d. %-18s -- %s%n", i + 1, names.get(i), entries.get(i).description);
         }
+        int pick = readChoice(1, entries.size());
+        return registry.create(pick - 1);
     }
 
     public Difficulty selectDifficulty() {
         System.out.println("\n--- SELECT DIFFICULTY ---");
-        System.out.println("1. Easy   -- 3 Goblins");
-        System.out.println("2. Medium -- 1 Goblin + 1 Wolf | Backup: 2 Wolves");
-        System.out.println("3. Hard   -- 2 Goblins | Backup: 1 Goblin + 2 Wolves");
-        int pick = readChoice(1, 3);
-        switch (pick) {
-            case 1: return Difficulty.EASY;
-            case 2: return Difficulty.MEDIUM;
-            default: return Difficulty.HARD;
+        Difficulty[] diffs = Difficulty.values();
+        for (int i = 0; i < diffs.length; i++) {
+            System.out.printf("%d. %s%n", i + 1, diffs[i].name());
         }
+        int pick = readChoice(1, diffs.length);
+        return diffs[pick - 1];
     }
 
     public void displayRoundStart(int round, List<Combatant> combatants) {

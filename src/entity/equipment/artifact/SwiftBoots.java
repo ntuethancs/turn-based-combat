@@ -9,4 +9,7 @@ public class SwiftBoots extends Equipment {
         super(EquipmentType.ARTIFACT);
         stats.add(StatField.speed, 8);
     }
+
+    @Override
+    public String getDescription() { return "+8 SPD permanently"; }
 }

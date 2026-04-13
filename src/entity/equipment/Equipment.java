@@ -1,9 +1,10 @@
 package entity.equipment;
 
 import entity.combatant.helpers.Stats;
+import entity.interfaces.Describable;
 import entity.interfaces.Named;
 
-public abstract class Equipment implements Named {
+public abstract class Equipment implements Named, Describable {
     public final Stats stats;
     public final EquipmentType type;
 

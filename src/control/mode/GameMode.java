@@ -2,11 +2,12 @@ package control.mode;
 
 import java.util.Iterator;
 import java.util.List;
+
 import boundary.UserInterface;
 import control.BattleEngine;
-import entity.level.Level;
-import entity.item.Item;
 import entity.equipment.Equipment;
+import entity.item.Item;
+import entity.level.Level;
 
 public abstract class GameMode implements Iterable<Level> {
     protected final LevelGenerator levelGenerator;

@@ -77,10 +77,9 @@ public class BattleEngine {
         return false;
     }
 
-    private List<Enemy> getLivingEnemies() {
+    private List<Combatant> getLivingEnemies() {
         return allCombatants.stream()
-            .filter(c -> c instanceof Enemy && c.isAlive())
-            .map(c -> (Enemy) c)
+            .filter(c -> c.isAlive() && c.getTeam() == ActionContext.Team.ENEMY)
             .collect(Collectors.toList());
     }
 
