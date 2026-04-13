@@ -11,8 +11,11 @@ import control.mode.survival.SurvivalMode;
 import control.mode.timed.TimedMode;
 import entity.action.interfaces.Action;
 import entity.combatant.Combatant;
+import entity.combatant.enemy.Enemy;
+import entity.combatant.enemy.EnemyRegistry;
 import entity.combatant.helpers.StatField;
 import entity.combatant.player.Player;
+import entity.combatant.player.PlayerRegistry;
 import entity.equipment.Equipment;
 import entity.equipment.artifact.ArtifactRegistry;
 import entity.equipment.weapon.WeaponRegistry;
@@ -24,12 +27,14 @@ public class GameUI implements UserInterface {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    @Override
     public void displayWelcome() {
         System.out.println("===========================================");
         System.out.println("   WELCOME TO TURN-BASED COMBAT ARENA");
         System.out.println("===========================================");
     }
 
+    @Override
     public GameMode selectGameMode() {
         List<GameMode> modes = List.of(
             new StoryMode(),
@@ -48,6 +53,7 @@ public class GameUI implements UserInterface {
         return modes.get(pick - 1);
     }
 
+    @Override
     public void displayModeEnd(boolean playerWon, GameMode mode) {
         System.out.println("\n=====================================================");
         System.out.println("[ " + mode.getName().toUpperCase() + " ]");
@@ -59,15 +65,33 @@ public class GameUI implements UserInterface {
         System.out.println("=====================================================");
     }
 
+    @Override
     public int selectPlayerType() {
+        PlayerRegistry registry = PlayerRegistry.getInstance();
+        List<PlayerRegistry.Entry<Player>> entries = registry.getEntries();
+        List<String> names = registry.getNames();
+
         System.out.println("\n--- SELECT YOUR PLAYER ---");
-        System.out.println("1. Warrior  [HP:260 | ATK:40 | DEF:20 | SPD:30]");
-        System.out.println("   Special: Shield Bash -- deal damage + stun target 2 turns");
-        System.out.println("2. Wizard   [HP:200 | ATK:50 | DEF:10 | SPD:20]");
-        System.out.println("   Special: Arcane Blast -- damage all enemies; +10 ATK per kill");
-        return readChoice(1, 2);
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.printf("%d. %-10s -- %s%n", i + 1, names.get(i), entries.get(i).description);
+        }
+        return readChoice(1, entries.size());
     }
 
+    @Override
+    public int selectEnemyType() {
+        EnemyRegistry registry = EnemyRegistry.getInstance();
+        List<EnemyRegistry.Entry<Enemy>> entries = registry.getEntries();
+        List<String> names = registry.getNames();
+
+        System.out.println("\n--- SELECT ENEMY ---");
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.printf("%d. %-10s -- %s%n", i + 1, names.get(i), entries.get(i).description);
+        }
+        return readChoice(1, entries.size());
+    }
+
+    @Override
     public List<Item> selectItems() {
         List<Item> chosen = new ArrayList<>();
         ItemRegistry registry = ItemRegistry.getInstance();
@@ -87,6 +111,7 @@ public class GameUI implements UserInterface {
         return chosen;
     }
 
+    @Override
     public Equipment selectWeapon() {
         WeaponRegistry registry = WeaponRegistry.getInstance();
         List<WeaponRegistry.Entry<Equipment>> entries = registry.getEntries();
@@ -100,6 +125,7 @@ public class GameUI implements UserInterface {
         return registry.create(pick - 1);
     }
 
+    @Override
     public Equipment selectArtifact() {
         ArtifactRegistry registry = ArtifactRegistry.getInstance();
         List<ArtifactRegistry.Entry<Equipment>> entries = registry.getEntries();
@@ -113,6 +139,7 @@ public class GameUI implements UserInterface {
         return registry.create(pick - 1);
     }
 
+    @Override
     public Difficulty selectDifficulty() {
         System.out.println("\n--- SELECT DIFFICULTY ---");
         Difficulty[] diffs = Difficulty.values();
@@ -123,6 +150,7 @@ public class GameUI implements UserInterface {
         return diffs[pick - 1];
     }
 
+    @Override
     public void displayRoundStart(int round, List<Combatant> combatants) {
         System.out.println("\n=================== ROUND " + round + " ===================");
         for (Combatant c : combatants) {
@@ -134,6 +162,7 @@ public class GameUI implements UserInterface {
         System.out.println("=====================================================");
     }
 
+    @Override
     public Combatant selectTarget(List<Combatant> combatants) {
         System.out.println("Select target:");
         for (int i = 0; i < combatants.size(); i++) {
@@ -144,6 +173,7 @@ public class GameUI implements UserInterface {
         return combatants.get(idx);
     }
 
+    @Override
     public Item selectItem(List<Item> items) {
         System.out.println("Select item:");
         for (int i = 0; i < items.size(); i++) {
@@ -152,10 +182,12 @@ public class GameUI implements UserInterface {
         return items.get(readChoice(1, items.size()) - 1);
     }
 
+    @Override
     public void displayActionResult(String msg) {
         System.out.println("  >> " + msg);
     }
 
+    @Override
     public void displayBattleEnd(boolean playerWon, Player player, int rounds) {
         System.out.println("\n=====================================================");
         if (playerWon) {
@@ -169,6 +201,7 @@ public class GameUI implements UserInterface {
         System.out.println("=====================================================");
     }
 
+    @Override
     public int askReplay() {
         System.out.println("\nWhat would you like to do?");
         System.out.println("1. Replay with same settings");
@@ -188,6 +221,7 @@ public class GameUI implements UserInterface {
         }
     }
 
+    @Override
     public Action selectAction(List<Action> allActions,
                                List<Action> readyActions,
                                Combatant owner) {

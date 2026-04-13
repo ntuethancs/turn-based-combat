@@ -14,6 +14,7 @@ public interface UserInterface {
     GameMode selectGameMode();
     void displayModeEnd(boolean playerWon, GameMode mode);
     int selectPlayerType();
+    int selectEnemyType();
     List<Item> selectItems();
     Equipment selectWeapon();
     Equipment selectArtifact();

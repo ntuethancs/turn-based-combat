@@ -7,13 +7,16 @@ import entity.combatant.Combatant;
 
 public class Enemy extends Combatant {
 
-    public Enemy(String name, int hp, int attack, int defense, int speed) {
-        super(name, hp, attack, defense, speed);
+    public Enemy(int hp, int attack, int defense, int speed) {
+        super(hp, attack, defense, speed);
         actions.add(new EnemyBasicAttack());
     }
 
     @Override
     public ActionContext.Team getTeam() { return ActionContext.Team.ENEMY; }
+
+    @Override
+    public String getDescription() { return "A standard enemy."; }
 
     public Action chooseAction(ActionContext ctx) {
         return actions.ready(ctx).get(0);

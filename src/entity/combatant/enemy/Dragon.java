@@ -10,12 +10,22 @@ import entity.action.interfaces.Action;
 import entity.action.interfaces.SpecialAttack;
 
 public class Dragon extends Enemy {
+    private static int count = 0;
+
     public Dragon() {
-        super("Dragon", 150, 50, 20, 15);
+        super(150, 50, 20, 15);
         actions.add(new EnemyBasicAttack());
         actions.add(new FireBreath());
         actions.add(new TailWhip());
     }
+
+    @Override
+    public String getName() {
+        return super.getName() + "-" + (char)('A' + count++);
+    }
+
+    @Override
+    public String getDescription() { return "A powerful fire-breathing dragon."; }
 
     @Override
     public Action chooseAction(ActionContext ctx) {

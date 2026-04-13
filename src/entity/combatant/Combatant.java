@@ -7,9 +7,10 @@ import entity.combatant.helpers.ActionMenu;
 import entity.combatant.helpers.StatField;
 import entity.combatant.helpers.Stats;
 import entity.combatant.helpers.StatusManager;
+import entity.interfaces.Describable;
+import entity.interfaces.Named;
 
-public abstract class Combatant {
-    protected final String name;
+public abstract class Combatant implements Named, Describable {
     protected int hp;
     protected final Stats baseStats;
     public final Stats statEffects;
@@ -17,8 +18,7 @@ public abstract class Combatant {
     public final ActionMenu actions;
 
 
-    public Combatant(String name, int hp, int attack, int defense, int speed) {
-        this.name = name;
+    public Combatant(int hp, int attack, int defense, int speed) {
         this.hp = hp;
         this.baseStats = new Stats(hp, attack, defense, speed);
         this.statEffects = new Stats();
@@ -29,6 +29,8 @@ public abstract class Combatant {
     public abstract ActionContext.Team getTeam();
 
     public abstract Action chooseAction(ActionContext ctx);
+
+    public abstract String getDescription();
 
     public void takeTurn(ActionContext ctx) {
         if (status.trigger(CombatEvent.TURN_START, ctx)) {
@@ -46,7 +48,7 @@ public abstract class Combatant {
         hp = Math.max(0, hp - dmg);
         if (ui != null) {
             ui.displayActionResult(dmg + " dmg dealt! HP: " + hp + "/" + stats().get(StatField.maxHp));
-            if (!isAlive()) ui.displayActionResult(name + " is ELIMINATED!");
+            if (!isAlive()) ui.displayActionResult(getName() + " is ELIMINATED!");
         }
     }
 
@@ -60,7 +62,6 @@ public abstract class Combatant {
     public Stats stats() { return baseStats.add(statEffects); }
     public void setHp(int hp) { this.hp = hp; }
 
-    public String getName() { return name; }
     public int getHp() { return hp; }
     public boolean isAlive() { return hp > 0; }
 }

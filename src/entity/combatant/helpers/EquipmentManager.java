@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import entity.combatant.Combatant;
 import entity.effect.base.PermanentEffect;
 import entity.equipment.Equipment;
 import entity.equipment.EquipmentType;
@@ -13,24 +14,26 @@ import entity.equipment.SpecialEffectEquipment;
 
 public class EquipmentManager {
     private final Map<EquipmentType, Equipment> equipped;
+    private Combatant owner;
 
-    public EquipmentManager() {
+    public EquipmentManager(Combatant owner) {
         this.equipped = new EnumMap<>(EquipmentType.class);
-    }
-
-    public EquipmentManager(Equipment weapon, Equipment artifact) {
-        this();
-        equip(weapon);
-        equip(artifact);
+        this.owner = owner;
     }
 
     public void equip(Equipment equipment) {
         if (equipment == null) return;
         equipped.put(equipment.type, equipment);
+        if (equipment instanceof SpecialEffectEquipment) {
+            ((SpecialEffectEquipment) equipment).effect.apply(owner, null);
+        }
     }
 
-    public Equipment unequip(EquipmentType type) {
-        return equipped.remove(type);
+    public void unequip(EquipmentType type) {
+        Equipment equipment = equipped.remove(type);
+        if (equipment instanceof SpecialEffectEquipment) {
+            ((SpecialEffectEquipment) equipment).effect.remove(owner, null);
+        }
     }
 
     public Equipment get(EquipmentType type) {

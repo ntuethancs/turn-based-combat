@@ -49,6 +49,21 @@ public class Registry<T extends Named & Describable> {
             throw new RuntimeException("Failed to instantiate " + list.get(index).type.getName(), e);
         }
     }
+
+    public <S extends T> S create(Class<S> type) {
+        try {
+            return type.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to instantiate " + type.getName(), e);
+        }
+    }
+
+    public Entry<T> getEntry(Class<? extends T> type) {
+        for (Entry<T> entry : entries.values()) {
+            if (entry.type.equals(type)) return entry;
+        }
+        return null;
+    }
 }
 
 

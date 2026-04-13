@@ -64,7 +64,13 @@ public class GameManager {
         while (levels.hasNext()) {
             Level level = levels.next();
 
-            Player player = PlayerFactory.createPlayer(playerType, cloneItems(itemChoices), weaponChoice, artifactChoice);
+            Player player = new PlayerFactory()
+                .createPlayer(playerType)
+                .addItems(cloneItems(itemChoices))
+                .addEquipment(weaponChoice)
+                .addEquipment(artifactChoice)
+                .build();
+            
             BattleEngine engine = new BattleEngine(ui, new SpeedBasedTurnOrder(), level, player, levelNumber);
 
             engine.startBattle();
