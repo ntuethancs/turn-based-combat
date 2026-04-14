@@ -7,8 +7,8 @@ import entity.equipment.EquipmentType;
 public class IronShield extends Equipment {
     public IronShield() {
         super(EquipmentType.ARTIFACT);
-        stats.add(StatField.defense, 15);
-        stats.subtract(StatField.speed, 10);
+        stats.add(StatField.defense, 15)
+            .subtract(StatField.speed, 10);
     }
 
     @Override

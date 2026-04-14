@@ -7,8 +7,8 @@ import entity.equipment.EquipmentType;
 public class Staff extends Equipment {
     public Staff() {
         super(EquipmentType.WEAPON);
-        stats.add(StatField.attack, 20);
-        stats.add(StatField.defense, -5);
+        stats.add(StatField.attack, 20)
+            .subtract(StatField.defense, 5);
     }
 
     @Override
