@@ -4,7 +4,7 @@ public class Wolf extends Enemy {
     private static int count = 0;
 
     public Wolf() {
-        super(40, 45, 5, 35);
+        super(40, 45, 5, 35, 0, 0);
         tag = (char)('A' + count);
         count++;
     }

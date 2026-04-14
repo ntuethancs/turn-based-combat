@@ -1,6 +1,5 @@
 package entity.combatant;
 
-import boundary.UserInterface;
 import entity.action.ActionContext;
 import entity.action.interfaces.Action;
 import entity.combatant.helpers.ActionMenu;
@@ -18,9 +17,9 @@ public abstract class Combatant implements Named, Describable {
     public final ActionMenu actions;
 
 
-    public Combatant(int hp, int attack, int defense, int speed) {
+    public Combatant(int hp, int attack, int defense, int speed, int critRate, int critDamage) {
         this.hp = hp;
-        this.baseStats = new Stats(hp, attack, defense, speed);
+        this.baseStats = new Stats(hp, attack, defense, speed, critRate, critDamage);
         this.statEffects = new Stats();
         this.status = new StatusManager(this);
         this.actions = new ActionMenu();
@@ -44,19 +43,19 @@ public abstract class Combatant implements Named, Describable {
         status.removeExpired();
     }
 
-    public void takeDamage(int dmg, UserInterface ui) {
+    public void takeDamage(int dmg, ActionContext ctx) {
+        ctx.damage += dmg;
         hp = Math.max(0, hp - dmg);
-        if (ui != null) {
-            ui.displayActionResult(dmg + " dmg dealt! HP: " + hp + "/" + stats().get(StatField.maxHp));
-            if (!isAlive()) ui.displayActionResult(getName() + " is ELIMINATED!");
+        ctx.ui.displayActionResult(dmg + " dmg dealt! HP: " + hp + "/" + stats().get(StatField.maxHp));
+        if (!isAlive()) {
+            ctx.ui.displayActionResult(getName() + " is ELIMINATED!");
+        } else {
+            status.trigger(CombatEvent.DAMAGE_TAKEN, ctx);
         }
     }
 
-    public boolean takeAttack(int dmg, ActionContext ctx) {
-        if (!status.trigger(CombatEvent.ATTACKED, ctx)) return false;
-        takeDamage(dmg, ctx.ui);
-        status.trigger(CombatEvent.DAMAGE_TAKEN, ctx);
-        return true;
+    public boolean attackHit(ActionContext ctx) {
+        return status.trigger(CombatEvent.ATTACKED, ctx);
     }
 
     public Stats stats() { return baseStats.add(statEffects); }

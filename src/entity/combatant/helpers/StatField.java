@@ -4,7 +4,9 @@ public enum StatField {
     maxHp,
     attack,
     defense,
-    speed;
+    speed,
+    critRate,
+    critDamage;
 
     @Override
     public String toString() {

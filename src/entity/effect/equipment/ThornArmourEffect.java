@@ -10,7 +10,7 @@ public class ThornArmourEffect extends EquipmentEffect {
 
     private boolean onDamageTaken(ActionContext ctx) {
         ctx.ui.displayActionResult(ctx.curTarget.getName() + "'s Thorn Armour reflects " + REFLECT_DAMAGE + " damage to " + ctx.actor.getName() + "!");
-        ctx.actor.takeDamage(REFLECT_DAMAGE, ctx.ui);
+        ctx.actor.takeDamage(REFLECT_DAMAGE, ctx);
         return true;
     }
 }

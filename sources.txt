@@ -4,12 +4,8 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\boundary\UserInterface
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\BattleEngine.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\GameManager.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\Registry.java
-C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\FixedSelection.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\GameMode.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\LevelGenerator.java
-C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\MultiRegistrySelection.java
-C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\RegistrySelection.java
-C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\Selection.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\challenge\ChallengeLevelGenerator.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\challenge\ChallengeMode.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\control\mode\story\StoryLevelGenerator.java

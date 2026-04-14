@@ -7,12 +7,16 @@ public class Stats {
     protected int attack = 0;
     protected int defense = 0;
     protected int speed = 0;
+    protected int critRate = 0;
+    protected int critDamage = 0;
 
-    public Stats(int maxHp, int attack, int defense, int speed) {
+    public Stats(int maxHp, int attack, int defense, int speed, int critRate, int critDamage) {
         this.maxHp = maxHp;
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
+        this.critRate = critRate;
+        this.critDamage = critDamage;
     }
 
     public Stats() {}
@@ -38,18 +42,20 @@ public class Stats {
         }
     }
 
-    public void add(StatField attr, int amount) {
+    public Stats add(StatField attr, int amount) {
         int value = get(attr);
         set(attr, value + amount);
+        return this;
     }
 
-    public void subtract(StatField attr, int amount) {
+    public Stats subtract(StatField attr, int amount) {
         int value = get(attr);
         set(attr, value - amount);
+        return this;
     }
 
     public Stats add(Stats other) {
-        Stats result = new Stats(maxHp, attack, defense, speed);
+        Stats result = new Stats(maxHp, attack, defense, speed, critRate, critDamage);
         for (Field field : Stats.class.getDeclaredFields()) {
             field.setAccessible(true);
             if (field.getType() == int.class) {

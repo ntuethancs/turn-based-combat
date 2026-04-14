@@ -5,7 +5,7 @@ import entity.action.player.warrior.WarriorBasicAttack;
 
 public class Warrior extends Player {
     public Warrior() {
-        super(260, 40, 20, 30);
+        super(260, 40, 20, 30, 10, 20);
         actions.add(new WarriorBasicAttack());
         actions.add(new ShieldBash());
     }

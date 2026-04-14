@@ -7,8 +7,8 @@ import entity.equipment.EquipmentType;
 public class Dagger extends Equipment {
     public Dagger() {
         super(EquipmentType.WEAPON);
-        stats.add(StatField.attack, 10);
-        stats.add(StatField.speed, 10);
+        stats.add(StatField.attack, 10)
+            .add(StatField.speed, 10);
     }
 
     @Override

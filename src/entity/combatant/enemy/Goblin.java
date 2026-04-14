@@ -4,7 +4,7 @@ public class Goblin extends Enemy {
     private static int count = 0;
 
     public Goblin() {
-        super(5, 35, 15, 25); 
+        super(5, 35, 15, 25, 0, 0); 
         tag = (char)('A' + count);
         count++;
     }

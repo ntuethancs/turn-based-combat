@@ -14,8 +14,8 @@ public abstract class Player extends Combatant {
     public final EquipmentManager equipment;
 
 
-    public Player(int hp, int attack, int defense, int speed) {
-        super(hp, attack, defense, speed);
+    public Player(int hp, int attack, int defense, int speed, int critRate, int critDamage) {
+        super(hp, attack, defense, speed, critRate, critDamage);
         actions.add(new DefendAction());
         actions.add(new ItemAction());
         this.inventory = new Inventory();

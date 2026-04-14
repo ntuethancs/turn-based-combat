@@ -13,7 +13,7 @@ public class Dragon extends Enemy {
     private static int count = 0;
 
     public Dragon() {
-        super(150, 50, 20, 15);
+        super(150, 50, 20, 15, 0, 0);
         actions.add(new EnemyBasicAttack());
         actions.add(new FireBreath());
         actions.add(new TailWhip());

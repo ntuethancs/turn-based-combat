@@ -20,7 +20,7 @@ public class BurnEffect extends DurationEffect {
     @Override
     public boolean tick(ActionContext ctx) {
         ctx.ui.displayActionResult(ctx.actor.getName() + " is BURNING!");
-        ctx.actor.takeDamage(damage, ctx.ui);
+        ctx.actor.takeDamage(damage, ctx);
         return super.tick(ctx);
     }
 
