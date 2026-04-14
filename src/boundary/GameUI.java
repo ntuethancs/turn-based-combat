@@ -1,8 +1,5 @@
 package boundary;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import boundary.input.ConsoleInputHandler;
 import boundary.input.InputHandler;
 import boundary.output.CombatantRenderer;
@@ -25,6 +22,8 @@ import entity.interfaces.Describable;
 import entity.interfaces.Named;
 import entity.item.Item;
 import entity.level.Difficulty;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameUI implements UserInterface {
 
@@ -375,44 +374,47 @@ public class GameUI implements UserInterface {
             .print();
         return inputHandler.readChoice(1, 3);
     }
-
     @Override
-    public Action selectAction(List<Action> allActions,
-                               List<Action> readyActions,
-                               Combatant owner) {
+public Action selectAction(List<Action> allActions,
+                           List<Action> readyActions,
+                           Combatant owner) {
 
-        builder.newLine()
-            .sectionTitle("TURN", palette().primary())
-            .append(combatantRenderer.iconFor(owner) + " ", combatantRenderer.colourFor(owner))
-            .bold(owner.getName(), combatantRenderer.colourFor(owner)).newLine()
-            .softDivider()
-            .print();
+    builder.newLine()
+        .sectionTitle("TURN", palette().primary())
+        .bold(owner.getName(), combatantRenderer.colourFor(owner)).newLine()
+        .softDivider()
+        .print();
 
-        for (int i = 0; i < allActions.size(); i++) {
-            Action action = allActions.get(i);
-            boolean ready = readyActions.contains(action);
+    combatantRenderer.printCombatantCard(owner, 0, false);
+    builder.softDivider().print();
 
-            if (ready) {
-                builder.append((i + 1) + ". ", palette().primary())
-                       .appendLine(action.getLabel(), palette().secondary());
-            } else {
-                builder.append((i + 1) + ". ", palette().primary())
-                       .appendLine(action.getLabel() + " [UNAVAILABLE]", palette().danger());
-            }
-        }
-        builder.print();
+    for (int i = 0; i < allActions.size(); i++) {
+        Action action = allActions.get(i);
+        boolean ready = readyActions.contains(action);
 
-        builder.softDivider().print();
-
-        while (true) {
-            int input = inputHandler.readChoice(1, allActions.size());
-            Action chosen = allActions.get(input - 1);
-            if (readyActions.contains(chosen)) {
-                return chosen;
-            }
-            builder.appendLine("Invalid choice. Please select a ready action.", palette().danger()).print();
+        if (ready) {
+            builder.append((i + 1) + ". ", palette().primary())
+                   .appendLine(action.getLabel(), palette().secondary());
+        } else {
+            builder.append((i + 1) + ". ", palette().primary())
+                   .appendLine(action.getLabel() + " [UNAVAILABLE]", palette().danger());
         }
     }
+    builder.print();
+
+    builder.softDivider().print();
+
+    while (true) {
+        int input = inputHandler.readChoice(1, allActions.size());
+        Action chosen = allActions.get(input - 1);
+        if (readyActions.contains(chosen)) {
+            return chosen;
+        }
+        builder.appendLine("Invalid choice.", palette().danger()).print();
+    }
+}
+    
+    
 }
 
 
