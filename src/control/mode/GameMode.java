@@ -10,18 +10,21 @@ import entity.combatant.player.PlayerRegistry;
 import entity.equipment.Equipment;
 import entity.equipment.artifact.ArtifactRegistry;
 import entity.equipment.weapon.WeaponRegistry;
+import entity.interfaces.Describable;
+import entity.interfaces.Named;
 import entity.item.Item;
 import entity.item.ItemRegistry;
 import entity.level.Level;
 
-public abstract class GameMode implements Iterable<Level> {
+public abstract class GameMode implements Iterable<Level>, Named, Describable {
     protected final LevelGenerator levelGenerator;
 
     protected GameMode(LevelGenerator levelGenerator) {
         this.levelGenerator = levelGenerator;
     }
 
-    public String getName() { return getClass().getSimpleName(); }
+    @Override
+    public String getName() { return getClass().getSimpleName().replaceAll("(?<=[a-z])(?=[A-Z])", " "); }
     public abstract String getDescription();
 
     @Override

@@ -12,10 +12,7 @@ import boundary.output.colours.ColourPalette;
 import boundary.output.colours.ColourPaletteRegistry;
 import control.Registry;
 import control.mode.GameMode;
-import control.mode.challenge.ChallengeMode;
-import control.mode.story.StoryMode;
-import control.mode.survival.SurvivalMode;
-import control.mode.timed.TimedMode;
+import control.mode.GameModeRegistry;
 import entity.action.ActionContext;
 import entity.action.interfaces.Action;
 import entity.combatant.Combatant;
@@ -77,37 +74,23 @@ public class GameUI implements UserInterface {
 
     @Override
     public GameMode selectGameMode() {
-        List<GameMode> modes = List.of(
-                new StoryMode(),
-                new SurvivalMode(),
-                new TimedMode(),
-                new ChallengeMode()
-        );
+        GameModeRegistry registry = GameModeRegistry.getInstance();
+        int modeCount = registry.getNames().size();
 
         while (true) {
-            builder.newLine()
-                .sectionTitle("MAIN MENU", palette().primary())
+            displayRegistry(registry, "MAIN MENU");
+            
+            builder
+                .append((modeCount + 1) + ". ", palette().primary())
+                .append(String.format("%-16s", "Settings"), palette().accent())
+                .appendLine("Change theme and other options.", palette().neutral())
                 .softDivider()
                 .print();
 
-            for (int i = 0; i < modes.size(); i++) {
-                GameMode mode = modes.get(i);
-                builder.append((i + 1) + ". ", palette().primary())
-                       .append(String.format("%-16s", mode.getName()), palette().secondary())
-                       .append("  ")
-                       .appendLine(mode.getDescription(), palette().neutral());
-            }
+            int pick = inputHandler.readChoice(1, modeCount + 1);
 
-            builder.append((modes.size() + 1) + ". ", palette().primary())
-                   .append(String.format("%-16s", "Settings"), palette().accent())
-                   .appendLine("Change theme and other options.", palette().neutral())
-                   .print();
-
-            builder.softDivider().print();
-            int pick = inputHandler.readChoice(1, modes.size() + 1);
-
-            if (pick <= modes.size()) {
-                return modes.get(pick - 1);
+            if (pick <= modeCount) {
+                return registry.create(pick - 1);
             } else {
                 displaySettings();
             }
@@ -116,7 +99,8 @@ public class GameUI implements UserInterface {
 
     private void displaySettings() {
         while (true) {
-            builder.newLine()
+            builder
+                .newLine()
                 .sectionTitle("SETTINGS", palette().primary())
                 .softDivider()
                 .append("1.", palette().primary()).appendLine(" Change Theme", palette().secondary())
@@ -140,14 +124,13 @@ public class GameUI implements UserInterface {
             initialize(paletteClass.getDeclaredConstructor().newInstance());
             builder
                 .newLine()
-                .appendLine("Theme applied successfully!", palette().success())
-                .print();
+                .appendLine("Theme applied successfully!", palette().success());
         } catch (Exception e) {
             builder
                 .newLine()
-                .appendLine("Failed to apply theme.", palette().danger())
-                .print();
+                .appendLine("Failed to apply theme.", palette().danger());
         }
+        builder.print();
     }
 
     @Override
@@ -160,18 +143,17 @@ public class GameUI implements UserInterface {
             .append("RESULT", palette().primary());
 
         if (playerWon) {
-            builder.appendLine("  " + "VICTORY", palette().bold() + palette().success());
+            builder.bold("  " + "VICTORY", palette().success());
         } else {
-            builder.appendLine("  " + "DEFEATED", palette().bold() + palette().danger());
+            builder.bold("  " + "DEFEATED", palette().danger());
         }
-        builder
-            .divider()
-            .print();
+        builder.newLine().divider().print();
     }
 
     @Override
     public <T extends Named & Describable> Class<? extends T> selectFromRegistry(Registry<T> registry, String title) {
         displayRegistry(registry, title);
+        builder.softDivider().print();
         int choice = inputHandler.readChoice(1, registry.getNames().size());
         return registry.getType(choice - 1);
     }
@@ -181,6 +163,7 @@ public class GameUI implements UserInterface {
             Registry<T> registry, String title, int count) {
 
         displayRegistry(registry, title);
+        builder.softDivider().print();
         List<Class<? extends T>> chosen = new ArrayList<>();
 
         for (int i = 1; i <= count; i++) {
@@ -196,19 +179,18 @@ public class GameUI implements UserInterface {
         List<String> names = registry.getNames();
         List<Registry.Entry<T>> entries = registry.getEntries();
 
-        builder.newLine()
+        builder
+            .newLine()
             .sectionTitle(title.toUpperCase(), palette().primary())
-            .softDivider()
-            .print();
+            .softDivider();
 
         for (int i = 0; i < entries.size(); i++) {
             builder
                 .append((i + 1) + ". ", palette().primary())
-                .append(names.get(i), palette().secondary())
+                .append(String.format("%-16s", names.get(i)), palette().secondary())
                 .append("  ")
                 .appendLine(entries.get(i).description, palette().neutral());
         }
-        builder.softDivider().print();
     }
 
     @Override
@@ -309,8 +291,9 @@ public class GameUI implements UserInterface {
             .print();
 
         for (int i = 0; i < items.size(); i++) {
-            builder.append((i + 1) + ". ", palette().primary())
-                   .appendLine(items.get(i).getName(), palette().secondary());
+            builder
+                .append((i + 1) + ". ", palette().primary())
+                .appendLine(items.get(i).getName(), palette().secondary());
         }
         builder.print();
 
