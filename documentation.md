@@ -14,9 +14,49 @@ The system was designed from the ground up to embody the four core pillars of Ob
 
 ### Explanation of Design Choices & Project Requirements
 The core requirement was to build a turn-based system with extensible Actions, Items, Status Effects, and Turn Order Strategies.
+1. Singleton Pattern
+   * Where it's used: PlayerRegistry, ItemRegistry, EnemyRegistry, WeaponRegistry, ArtifactRegistry, GameModeRegistry, and ColourPaletteRegistry.
+   * How it works: Each registry class has a private constructor, a private static instance, and a public getInstance() method.
+   * Design Justification: In a game, you need a single "source of truth" for all available entities. Using the Singleton pattern ensures that there is only    
+     ever one instance of each registry. This provides a global point of access to the game’s "catalog" while preventing the overhead and bugs associated with  
+     passing registry instances between every class.
 
-*   **Registry Pattern for Extensibility:** To avoid hardcoding lists of available players, enemies, items, and game modes throughout the UI and engine, we implemented a generic `Registry<T>` system. The `GameModeRegistry`, `PlayerRegistry`, `ItemRegistry`, etc., act as centralized catalogs. Adding a new feature (like a new `GameMode`) simply requires creating the class and registering it. This makes the codebase incredibly extensible and directly adheres to the Open/Closed Principle.
-*   **Observer Pattern for Status Effects:** Instead of hardcoding checks for "isStunned" or "isBurning" into the combat loop, we implemented an Observer pattern using `CombatEvent` triggers (`TURN_START`, `ATTACKED`, `DAMAGE_TAKEN`, `TURN_END`). `StatusEffect`s register themselves as listeners to specific events. For example, `SmokeBombEffect` listens for `ATTACKED` and returns `false` to nullify damage, while `BurnEffect` listens to `TURN_END` to apply damage. This makes adding complex, multi-stage status effects trivial without modifying the core `Combatant` or `BattleEngine` logic.
+  2. Builder Pattern
+   * Where it's used: OutputBuilder and PlayerFactory.
+   * How it works:
+       * OutputBuilder: It uses a Fluent API style where methods like append(), newLine(), and divider() return this. This allows for "chained" calls:
+         builder.newLine().divider().append("Victory", color).print();.
+       * PlayerFactory: Although named a "Factory," it functions as a Builder by allowing the GameManager to configure a player incrementally: new
+         PlayerFactory().createPlayer(type).addItems(list).addEquipment(weapon).build();.
+   * Design Justification:
+       * Readability: Building complex multi-line CLI strings with ANSI colors is messy. The Builder pattern hides the complexity of escape codes and string    
+         concatenation behind a clean, readable interface.
+       * Step-by-Step Construction: Creating a Player is a complex process involving multiple dependencies (Items, Weapons, Artifacts). The Builder pattern     
+         allows us to construct the player object step-by-step, ensuring the final object is always in a valid state when build() is called.
+
+  3. Strategy Pattern
+   * Where it's used: TurnOrderStrategy, LevelGenerator, and GameMode.
+   * How it works: We define an interface (the Strategy) and multiple concrete implementations. The BattleEngine holds a reference to a TurnOrderStrategy and   
+     calls its determineOrder() method without knowing how the order is calculated.
+   * Design Justification: This allows the game to support different logic for turn order (e.g., SpeedBasedTurnOrder, RoundRobinTurnOrder) or different logic   
+     for level spawning (StoryLevelGenerator vs. SurvivalLevelGenerator) without modifying the core engine or game mode classes. This is a perfect example of   
+     the Open/Closed Principle.
+
+  4. Observer Pattern (Trigger System)
+   * Where it's used: StatusManager, StatusEffect, and CombatEvent.
+   * How it works: The StatusManager acts as a "Subject" that notifies "Observers" (StatusEffects) when specific CombatEvents (like TURN_START, ATTACKED,       
+     DAMAGE_TAKEN, or TURN_END) occur.
+   * Design Justification: This pattern completely decouples the BattleEngine and Combatant from the specific logic of status effects. Instead of hardcoding    
+     checks for "isStunned" or "isBurning" into the combat loop, the engine simply "fires" an event. For example, SmokeBombEffect listens for ATTACKED and      
+     returns false to nullify damage, while BurnEffect listens to TURN_END to apply damage. This makes adding complex, multi-stage status effects trivial       
+     without modifying core logic.
+
+  5. Registry Pattern (Extensibility)
+   * Where it's used: The base Registry<T> class and its specific implementations.
+   * How it works: We implemented a generic Registry<T> system that acts as a centralized catalog. Each registry maintains a mapping of names/descriptions to   
+     specific classes.
+   * Design Justification: To avoid hardcoding lists of available players, enemies, items, and game modes throughout the UI and engine, registries allow for    
+     "plug-and-play" extensibility. Adding a new feature (like a new GameMode or Weapon) simply requires creating the class and registering it. This directly  
 
 ### Coupling and Cohesion
 *   **High Cohesion:** Classes are highly focused. The `OutputBuilder` strictly handles text formatting and ANSI color generation. The `LevelGenerator` is solely responsible for instantiating enemy waves. The `ActionContext` bundles all relevant data for an action into a single object, keeping action signatures clean.

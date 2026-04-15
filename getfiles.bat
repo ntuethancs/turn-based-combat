@@ -1,0 +1,1 @@
+(for /R %%i in (*.java) do @echo %%~nxi) > java_files.txt
