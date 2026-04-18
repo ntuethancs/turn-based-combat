@@ -7,7 +7,7 @@ import boundary.UserInterface;
 import control.mode.GameMode;
 import control.strategy.SpeedBasedTurnOrder;
 import entity.combatant.player.Player;
-import entity.combatant.player.PlayerFactory;
+import entity.combatant.player.PlayerBuilder;
 import entity.equipment.Equipment;
 import entity.item.Item;
 import entity.level.Level;
@@ -65,7 +65,7 @@ public class GameManager {
         while (levels.hasNext()) {
             Level level = levels.next();
 
-            Player player = new PlayerFactory()
+            Player player = new PlayerBuilder()
                 .createPlayer(playerClass)
                 .addItems(itemClasses)
                 .addEquipment(weaponClass)
