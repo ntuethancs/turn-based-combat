@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import entity.combatant.enemy.Enemy;
-import entity.combatant.enemy.EnemyFactory;
+import entity.combatant.enemy.EnemySpawner;
 
 public class LevelBuilder implements Spawner {
     private final List<Map<Class<? extends Enemy>, Integer>> waves = new ArrayList<>();
@@ -44,7 +44,7 @@ public class LevelBuilder implements Spawner {
             @Override
             public List<Enemy> next() {
                 Map<Class<? extends Enemy>, Integer> group = waveIterator.next();
-                return EnemyFactory.createGroup(group);
+                return EnemySpawner.createGroup(group);
             }
         };
     }

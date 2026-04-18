@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 
 import entity.combatant.enemy.Dragon;
 import entity.combatant.enemy.Enemy;
-import entity.combatant.enemy.EnemyFactory;
+import entity.combatant.enemy.EnemySpawner;
 import entity.combatant.enemy.Goblin;
 import entity.combatant.enemy.Wolf;
 
@@ -44,9 +44,9 @@ public class DifficultySpawner implements Spawner {
                 
                 List<Enemy> waveEnemies = new ArrayList<>();
                 if (currentWave == 0) {
-                    waveEnemies.addAll(EnemyFactory.createGroup(getInitialGroup()));
+                    waveEnemies.addAll(EnemySpawner.createGroup(getInitialGroup()));
                 } else if (currentWave == 1) {
-                    waveEnemies.addAll(EnemyFactory.createGroup(getBackupGroup()));
+                    waveEnemies.addAll(EnemySpawner.createGroup(getBackupGroup()));
                 }
                 
                 currentWave++;

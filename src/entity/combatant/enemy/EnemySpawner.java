@@ -6,7 +6,7 @@ import java.util.Map;
 
 import entity.interfaces.Instantiator;
 
-public class EnemyFactory extends Instantiator {
+public class EnemySpawner extends Instantiator {
     public static List<Enemy> createGroup(Map<Class<? extends Enemy>, Integer> group) {
         List<Enemy> enemies = new ArrayList<>();
         for (Map.Entry<Class<? extends Enemy>, Integer> entry : group.entrySet()) {

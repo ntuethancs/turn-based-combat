@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import control.mode.LevelGenerator;
+import entity.combatant.enemy.Dragon;
 import entity.combatant.enemy.Enemy;
-import entity.combatant.enemy.EnemyFactory;
+import entity.combatant.enemy.EnemySpawner;
 import entity.combatant.enemy.Goblin;
 import entity.combatant.enemy.Wolf;
-import entity.combatant.enemy.Dragon;
 import entity.level.Level;
 import entity.level.Spawner;
-import control.mode.LevelGenerator;
 
 public class SurvivalLevelGenerator implements LevelGenerator {
     @Override
@@ -56,7 +56,7 @@ public class SurvivalLevelGenerator implements LevelGenerator {
                                 cumulativeCounts.put(type, cumulativeCounts.getOrDefault(type, 0) + 1);
                                 waveNumber++;
                                 
-                                return EnemyFactory.createGroup(cumulativeCounts);
+                                return EnemySpawner.createGroup(cumulativeCounts);
                             }
                         };
                     }
