@@ -1,6 +1,6 @@
 package entity.interfaces;
 
-public abstract class Factory {
+public abstract class Instantiator {
     protected static <T> T instantiate(Class<T> type) { 
         try {
             return type.getDeclaredConstructor().newInstance();

@@ -1,10 +1,10 @@
 package entity.combatant.player;
 
 import entity.equipment.Equipment;
-import entity.interfaces.Factory;
+import entity.interfaces.Instantiator;
 import entity.item.Item;
 
-public class PlayerBuilder extends Factory {
+public class PlayerBuilder extends Instantiator {
     private Player player;
 
     public PlayerBuilder createPlayer(Class<? extends Player> selection) {
