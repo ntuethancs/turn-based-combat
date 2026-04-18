@@ -15,7 +15,6 @@ public abstract class StatusEffect extends Observer implements Named {
         return parts[0];
     }
 
-    // TODO: add status effects through apply rather than accessing statusManager directly
     public abstract void apply(Combatant target, UserInterface ui);
     public abstract void remove(Combatant target, UserInterface ui);
     public abstract boolean isExpired();

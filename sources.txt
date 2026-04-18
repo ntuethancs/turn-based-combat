@@ -51,8 +51,8 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\Comba
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\CombatEvent.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Dragon.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Enemy.java
-C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\EnemyFactory.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\EnemyRegistry.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\EnemySpawner.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Goblin.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\enemy\Wolf.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\ActionMenu.java
@@ -62,7 +62,7 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpe
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\Stats.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\helpers\StatusManager.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\Player.java
-C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\PlayerFactory.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\PlayerBuilder.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\PlayerRegistry.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\Warrior.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\combatant\player\Wizard.java
@@ -95,7 +95,7 @@ C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapo
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\Sword.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\equipment\weapon\WeaponRegistry.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Describable.java
-C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Factory.java
+C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Instantiator.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Named.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\interfaces\Observer.java
 C:\Users\chowy\Documents\ntu\SC2002\turn_based_combat\src\entity\item\Item.java

@@ -5,6 +5,8 @@ import java.util.List;
 
 import boundary.UserInterface;
 import control.BattleEngine;
+import control.strategy.SpeedBasedTurnOrder;
+import control.strategy.TurnOrderStrategy;
 import entity.combatant.player.Player;
 import entity.combatant.player.PlayerRegistry;
 import entity.equipment.Equipment;
@@ -18,6 +20,7 @@ import entity.level.Level;
 
 public abstract class GameMode implements Iterable<Level>, Named, Describable {
     protected final LevelGenerator levelGenerator;
+    public final TurnOrderStrategy turnStrategy = new SpeedBasedTurnOrder();
 
     protected GameMode(LevelGenerator levelGenerator) {
         this.levelGenerator = levelGenerator;

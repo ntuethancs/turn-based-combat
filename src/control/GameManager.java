@@ -5,7 +5,6 @@ import java.util.List;
 
 import boundary.UserInterface;
 import control.mode.GameMode;
-import control.strategy.SpeedBasedTurnOrder;
 import entity.combatant.player.Player;
 import entity.combatant.player.PlayerBuilder;
 import entity.equipment.Equipment;
@@ -72,7 +71,7 @@ public class GameManager {
                 .addEquipment(artifactClass)
                 .build();
             
-            BattleEngine engine = new BattleEngine(ui, new SpeedBasedTurnOrder(), level, player, levelNumber);
+            BattleEngine engine = new BattleEngine(ui, mode.turnStrategy, level, player, levelNumber);
 
             engine.startBattle();
             mode.onRoundEnd(engine, ui);
